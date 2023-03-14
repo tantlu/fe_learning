@@ -78,3 +78,49 @@ Các giá trị sau được cho phép:
 - none - Xác định không có biên giới
 - hidden - Xác định một đường viền ẩn
 Thuộc tính có thể có từ một đến bốn giá trị (cho viền trên cùng, viền phải, viền dưới cùng và viền trái).
+
+## CSS Links
+- a:link - a normal
+- a:visited - a link khi người dùng đã click
+- a:hover - a link khi người dùng trỏ tới
+- a:active - a link khi người dùng click
+
+## table
+
+- các đường viền của bảng thu lại thành 1 đường: 
+
+`border-collapse: collapse;`
+
+## Position
+1. **Relative**
+
+Một phần tử có `position: relative;` nó sẽ được di chuyển dựa trên vị trí của nó trên trang web bình thường, nhưng với khả năng di chuyển một số pixel lên xuống hoặc sang trái phải bằng cách sử dụng các thuộc tính `top`, `bottom`, `left`, `right`.
+2. **Absolute**
+
+Khi một phần tử có giá trị `position: absolute` được đặt trong một tài liệu HTML, nó sẽ được định vị tuyệt đối (vị trí chính xác) trên trang web, dựa trên vị trí của phần tử cha gần nhất có giá trị position khác với giá trị mặc định. Nếu không có phần tử cha nào có giá trị position khác với static, phần tử sẽ được định vị dựa trên thẻ `<body>` của trang.
+
+Khi sử dụng `position: absolute`, phần tử có thể được di chuyển dựa trên tọa độ x và y bằng cách sử dụng các thuộc tính `top`, `bottom`, `left`, `right`
+
+3. **sticky**
+
+Khi sử dụng `position: sticky` được định vị tương đối cho đến khi một vị trí bù nhất định được đáp ứng trong chế độ xem - sau đó nó "dính" tại chỗ (như `position:fixed`).
+
+## Z-index
+Trong CSS, `z-index` là một thuộc tính được sử dụng để định vị các phần tử lên hoặc xuống trong lớp đồ họa 3 chiều trên trang web. Nó chỉ định độ sâu của một phần tử và quyết định phần tử đó sẽ được hiển thị phía trên hay phía dưới phần tử khác.
+
+## CSS Align
+
+## CSS Combinators
+
+- `div p` : Chọn tất cả các phần tử `<p>` bên trong các phần tử `<div>`
+- `div > p` : Chọn tất cả các phần tử `<p>` trong đó phần tử cha là phần tử `<div>`
+- `div + p` : Chọn phần tử `<p>` đầu tiên được đặt ngay sau phần tử `<div>`
+- `div ~ p` : Chọn mọi phần tử `<p>` đứng trước phần tử `<div>`
+
+## CSS Pseudo-classes
+1. `:hover:` Chọn phần tử khi rê chuột qua nó.
+2. `:active:` Chọn phần tử khi đang được nhấn xuống.
+3. `:focus:` Chọn phần tử khi được chọn bằng phím tab hoặc chuột.
+4. `:nth-child(n):` Chọn phần tử con thứ n của một phần tử cha.
+5. `:first-child:` Chọn phần tử đầu tiên là con của phần tử cha.
+6. `:last-child:` Chọn phần tử cuối cùng là con của phần tử cha.
