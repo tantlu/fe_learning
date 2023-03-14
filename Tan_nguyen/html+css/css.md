@@ -61,3 +61,20 @@ cú pháp : grid-area: row-start / column-start / row-end / column-end;
 - *auto-fill và auto-fit*<br>
     1. auto-fill Nếu không đủ nội dung để điền đầy tất cả các ô, tự động chèn thêm các cột cho tới khi hết chỗ
     2. auto-fit Nếu không đủ nội dung để điền đầy tất cả các ô, thu gọn kích thước item cho phù hợp với vùng chứa 
+
+## Border
+Thuộc tính chỉ định loại viền để hiển thị.border-style
+
+Các giá trị sau được cho phép:
+
+- dotted - Xác định đường viền chấm
+- dashed - Xác định đường viền đứt nét
+- solid - Xác định một đường viền rắn
+- double - Xác định đường viền kép
+- groove - Xác định đường viền có rãnh 3D. Hiệu ứng phụ thuộc vào giá trị màu viền
+- ridge - Xác định đường viền 3D ridged. Hiệu ứng phụ thuộc vào giá trị màu viền
+- inset - Xác định đường viền 3D inset. Hiệu ứng phụ thuộc vào giá trị màu viền
+- outset - Xác định đường viền bắt đầu 3D. Hiệu ứng phụ thuộc vào giá trị màu viền
+- none - Xác định không có biên giới
+- hidden - Xác định một đường viền ẩn
+Thuộc tính có thể có từ một đến bốn giá trị (cho viền trên cùng, viền phải, viền dưới cùng và viền trái).

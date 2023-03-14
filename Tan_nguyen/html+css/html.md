@@ -32,7 +32,7 @@ colspan="2">Name</th>`
 `none` - không kiểu
 - các kiểu hiển thị khác nhau cho đầu dòng item.
 `type="1"` - kiểu default
-`type="A"` - 
-`type="I"`
-`type="a"`
-`type="i"`
+`type="A"` - Chữ in hoa
+`type="I"` - Chữ la mã in hoa
+`type="a"` - Chữ thường
+`type="i"` - Chữ la mã thường
