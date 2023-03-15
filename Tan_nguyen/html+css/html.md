@@ -109,3 +109,4 @@ Các thẻ HTML semantic được chia theo các danh mục chính sau:
  ngoài ra còn các charset khác như ISO-8859-1: Là bộ mã ký tự Latin-1, Shift JIS, EUC-KR, GB2312
 ****
 ## 
+

@@ -1,7 +1,7 @@
 # summary
 ****
 ## 
-SCSS (Sass) là một ngôn ngữ mở rộng của CSS, hỗ trợ cung cấp nhiều tính năng hơn so với CSS truyền thống, bao gồm cả khai báo biến và hàm.
+SCSS (Sass) là một ngôn ngữ tiền xử lý CSS, hỗ trợ cung cấp nhiều tính năng hơn so với CSS truyền thống, bao gồm cả khai báo biến và hàm.
 
 Các mục đích sử dụng của SCSS là:
 
@@ -164,8 +164,7 @@ khác biệt giữa SCSS variable và CSS variable như sau:
 - SCSS variable chỉ có thể được sử dụng trong phạm vi block mà nó được định nghĩa hoặc các block con của nó.
 - CSS variable có thể được sử dụng ở bất kỳ đâu trong phạm vi tài liệu HTML.
 4. Độ ưu tiên:
-- SCSS variable có độ ưu tiên cao hơn so với CSS property thông thường, nghĩa là nó có thể ghi đè lên giá trị của các thuộc tính CSS khác trong cùng phạm vi áp dụng.
-- CSS variable cũng có thể được ghi đè nhưng phải thông qua việc sử dụng selector cụ thể hoặc độ ưu tiên của CSS.
+- cả 2 đều có độ ưu tiên là ngang nhau nhưng phải thông qua việc sử dụng selector cụ thể hoặc độ ưu tiên của CSS.
 
 Ví dụ về SCSS variable:
 ```

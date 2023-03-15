@@ -110,6 +110,19 @@ Khi sử dụng `position: sticky` được định vị tương đối cho đ�
 Trong CSS, `z-index` là một thuộc tính được sử dụng để định vị các phần tử lên hoặc xuống trong lớp đồ họa 3 chiều trên trang web. Nó chỉ định độ sâu của một phần tử và quyết định phần tử đó sẽ được hiển thị phía trên hay phía dưới phần tử khác.
 ****
 ## CSS Align
+1. `align-content`: Căn chỉnh các hàng trong một container có đủ không gian trống.
+
+2. `align-items`: Căn chỉnh các phần tử trong một container theo chiều dọc.
+
+3. `align-self`: Căn chỉnh một phần tử cụ thể trong một container theo chiều dọc.
+
+4. `justify-content`: Căn chỉnh các phần tử trong một container theo chiều ngang.
+
+5. `justify-items`: Căn chỉnh các phần tử trong một container theo chiều ngang và chiều dọc.
+
+6. `justify-self`: Căn chỉnh một phần tử cụ thể trong một container theo chiều ngang.
+
+
 ****
 ## CSS Combinators
 
@@ -119,6 +132,7 @@ Trong CSS, `z-index` là một thuộc tính được sử dụng để định 
 - `div ~ p` : Chọn mọi phần tử `<p>` đứng trước phần tử `<div>`
 ****
 ## CSS Pseudo-classes
+Lớp ảo được sử dụng để chọn các phần tử dựa trên trạng thái của chúng
 1. `:hover:` Chọn phần tử khi rê chuột qua nó.
 2. `:active:` Chọn phần tử khi đang được nhấn xuống.
 3. `:focus:` Chọn phần tử khi được chọn bằng phím tab hoặc chuột.
@@ -272,6 +286,8 @@ Trong đó, các giá trị được sử dụng như sau:
 - `<animation-iteration-count>`: Số lần lặp lại animation, hoặc giá trị infinite để lặp vô hạn.
 
 => Transition được sử dụng để tạo các hiệu ứng chuyển động mượt mà cho một thuộc tính khi giá trị của nó thay đổi, trong khi Animation được sử dụng để tạo các hiệu ứng chuyển động phức tạp hơn bằng cách sử dụng các keyframe và thuộc tính animation khác nhau. 
+
+Transition sao lại cần thêm animation vì nó có thể được sử dụng lại và có nhiều keyframe
 ****
 ## Animate 1 HTML tag
 sử dụng CSS Transitions hoặc CSS Animations.
@@ -349,3 +365,15 @@ là một phương pháp thiết kế Responsive Web Design (RWD) bắt đầu t
 Với phương pháp này, các phương tiện truyền thông được tạo ra để chạy trên các thiết bị lớn hơn đầu tiên. Sau đó, khi thiết kế được hoàn thành cho các thiết bị lớn hơn, các quyết định thiết kế được thực hiện để chuyển đổi các phương tiện truyền thông sang các thiết bị nhỏ hơn.
 
 Ví dụ, khi thiết kế một trang web desktop first, bạn có thể thiết kế trang web của mình với một bố cục rộng, sử dụng nhiều cột, hình ảnh lớn và phương tiện truyền thông khác. Khi thiết kế hoàn thành, bạn sẽ sử dụng các media queries để chuyển đổi các phương tiện truyền thông sang thiết bị di động.
+
+## So sánh
+- Desktop First:
+
+Sử dụng max-width
+
+- Mobile First:
+
+Sử dụng min-width
+
+## Cái nào tốt hơn?
+Tùy vào lượng nội dung mà chúng ta muốn hiển thị để lựa chọn Mobile hay Desktop nếu lượng data mà chúng ta lớn, diện tích hiển thị nhiều thì sẽ sử dụng Desktop và ngược lại
