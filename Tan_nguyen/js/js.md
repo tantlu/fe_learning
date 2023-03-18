@@ -276,4 +276,36 @@ Vì vậy, khi muốn thực hiện một tác vụ sau một khoảng thời gi
 
 2. `DOM (Document Object Model)` là một biểu diễn của cấu trúc trang web dưới dạng cây đối tượng. DOM bao gồm tất cả các phần tử trên trang web như các thẻ HTML, các thuộc tính và nội dung của chúng. DOM cung cấp các phương thức để truy cập và thay đổi nội dung của các phần tử trên trang web.
 
+Mọi thành phần đều được xem là 1 nút (node), được biểu diễn trên 1 cây cấu trúc dạng cây gọi là DOM Tree. Các phần tử khác nhau sẽ được phân loại nút khác nhau nhưng quan trọng nhất là 3 loại: nút gốc (document node), nút phần tử (element node), nút văn bản (text node).
+
+- Nút gốc: chính là tài liệu HTML, thường được biểu diễn bởi thẻ `<html>`.
+- Nút phần tử: biểu diễn cho 1 phần tử HTML.
+- Nút văn bản: mỗi đoạn kí tự trong tài liệu HTML, bên trong 1 thẻ HTML đều là 1 nút văn bản. Đó có thể là tên trang web trong thẻ `<title>`, tên đề mục trong thẻ `<h1>`, hay một đoạn văn trong thẻ
+
 Điểm khác biệt giữa BOM và DOM là BOM tương tác với các thành phần của trình duyệt, trong khi DOM tương tác với cấu trúc của trang web. Cả BOM và DOM đều làm việc với JavaScript để tạo ra các tương tác động trên trang web.
+****
+## == và  ===
+1. Toán tử "==":
+So sánh giá trị của hai biến.
+Nếu hai biến có cùng giá trị, kết quả trả về là true.
+Nếu hai biến có kiểu dữ liệu khác nhau, JavaScript sẽ cố gắng chuyển đổi kiểu dữ liệu để so sánh chúng.
+
+Ví dụ:
+```
+console.log(5 == "5"); // true (so sánh giá trị)
+console.log(5 == 5); // true (cùng kiểu dữ liệu)
+console.log(5 == true); // true (chuyển đổi giá trị của true thành 1)
+console.log(5 == false); // false (chuyển đổi giá trị của false thành 0)
+```
+2. Toán tử "===":
+So sánh giá trị và kiểu dữ liệu của hai biến.
+Nếu hai biến có cùng giá trị và kiểu dữ liệu, kết quả trả về là true.
+Nếu hai biến có kiểu dữ liệu khác nhau, kết quả trả về là false.
+
+Ví dụ
+```
+console.log(5 === "5"); // false (kiểu dữ liệu khác nhau)
+console.log(5 === 5); // true (cùng giá trị và kiểu dữ liệu)
+console.log(5 === true); // false (kiểu dữ liệu khác nhau)
+console.log(5 === false); // false (kiểu dữ liệu khác nhau)
+```
