@@ -284,6 +284,28 @@ Mọi thành phần đều được xem là 1 nút (node), được biểu diễ
 
 Điểm khác biệt giữa BOM và DOM là BOM tương tác với các thành phần của trình duyệt, trong khi DOM tương tác với cấu trúc của trang web. Cả BOM và DOM đều làm việc với JavaScript để tạo ra các tương tác động trên trang web.
 ****
+## Inheritance
+Inheritance trong JavaScript là cơ chế cho phép đối tượng kế thừa các tính năng từ đối tượng cha của nó. Trong ES5, cơ chế kế thừa được thực hiện bằng cách sử dụng các phương thức của hàm khởi tạo (constructor function) và prototype của đối tượng.
+
+Trong ES6, cơ chế kế thừa đã được cải tiến với sự xuất hiện của lớp (class) trong JavaScript. Với cú pháp class, chúng ta có thể tạo ra các đối tượng mới bằng cách sử dụng từ khóa new và các phương thức khởi tạo (constructor) của lớp. Lớp cũng cho phép sử dụng từ khóa extends để kế thừa các tính năng từ một lớp cha (superclass).
+
+Một số sự khác biệt chính giữa Inheritance trong ES5 và ES6:
+
+1. Cú pháp khai báo đối tượng:
+    - Trong ES5, chúng ta sử dụng hàm khởi tạo (constructor function) để khai báo đối tượng.
+    - Trong ES6, chúng ta sử dụng từ khóa class để khai báo lớp (class), và từ khóa constructor để khai báo phương thức khởi tạo của lớp.
+2. Cú pháp kế thừa:
+    - Trong ES5, chúng ta sử dụng prototype để kế thừa các tính năng từ đối tượng cha.
+    - Trong ES6, chúng ta sử dụng từ khóa extends để kế thừa các tính năng từ một lớp cha.
+3. Sử dụng super:
+    - Trong ES5, để gọi phương thức của đối tượng cha, chúng ta phải sử dụng các phương thức của prototype.
+    - Trong ES6, chúng ta có thể sử dụng từ khóa super để gọi phương thức của lớp cha.
+4. Tính đa hình (polymorphism):
+    - Trong ES5, tính đa hình được thực hiện thông qua việc ghi đè các phương thức của đối tượng cha.
+    - Trong ES6, chúng ta có thể sử dụng các phương thức static và phương thức ghi đè (override method) để thực hiện tính đa hình.
+
+Với sự xuất hiện của lớp và cú pháp kế thừa mới trong ES6, việc sử dụng Inheritance trong JavaScript trở nên đơn giản và dễ dàng hơn.
+***
 ## == và  ===
 1. Toán tử "==":
 So sánh giá trị của hai biến.
@@ -319,9 +341,269 @@ Trong JavaScript, `var` và `let` là các từ khóa để khai báo biến.
 
 Một điểm khác biệt quan trọng khác giữa `let` và `var` là `let` sẽ ném ra một lỗi khi bạn cố gắng truy cập biến trước khi nó được khai báo, trong khi `var` sẽ cho phép bạn truy cập vào giá trị của biến trước khi nó được khai báo, giá trị đó sẽ là undefined.
 
+## phân biệt var , let , const
 
+Trong JavaScript, có 3 từ khóa được sử dụng để khai báo biến: `let`, `const`, và `var`.
+
+1. `var`: là từ khóa cũ được sử dụng để khai báo một biến trong JavaScript. khai báo có 2 dạng toàn cục - global (ảnh hưởng mọi nơi) và địa phương - local (chỉ ảnh hưởng bên trong function). Một biến được khai báo bằng `var` cũng có thể được khai báo lại trong cùng phạm vi hoạt động.
+
+
+2. `let`: sử dụng như `var`, tuy nhiên có tác dụng phạm vi bên trong một khối (như bên trong câu điều kiện if, vòng lặp for, ...).. Biến được khai báo bằng `let` chỉ được truy cập trong khối mã nơi nó được khai báo. Khai báo biến `let` có thể được cập nhật nhưng không thể khai báo lại.
+
+3. `const`: cũng là từ khóa để khai báo một biến, tuy nhiên, biến được khai báo bằng `const` không thể được gán lại giá trị sau khi đã được khởi tạo. Nó cũng có phạm vi hoạt động trong khối mã mà nó được khai báo.
+
+
+* Sự khác biệt giữa `let` và `var`:
+
+Biến được khai báo bằng `let` có phạm vi hoạt động (scope) trong khối mã mà nó được khai báo, trong khi biến được khai báo bằng `var` có phạm vi hoạt động trong hàm.
+Biến được khai báo bằng `let` không thể khai báo lại, trong khi biến được khai báo bằng `var` có thể khai báo lại trong cùng phạm vi hoạt động.
+* Sự khác biệt giữa `let` và `const`:
+
+Biến được khai báo bằng `const` không thể gán lại giá trị sau khi đã được khởi tạo, trong khi biến được khai báo bằng `let` có thể được gán lại giá trị.
+Cả hai đều có phạm vi hoạt động trong khối mã mà nó được khai báo.
+
+## Async và Await
+- I. Khái niệm
+
+Async và Await là hai tính năng của JavaScript được giới thiệu từ phiên bản ES2017 (hay còn gọi là ES8), giúp xử lý các thao tác bất đồng bộ (asynchronous) trong code trở nên dễ dàng hơn.
+
+Trước khi có Async và Await, để xử lý các tác vụ bất đồng bộ, ta thường sử dụng Promise và callback. Tuy nhiên, viết code sử dụng Promise hoặc callback có thể khiến code trở nên khó đọc và khó bảo trì, đặc biệt khi ta phải xử lý nhiều tác vụ bất đồng bộ liên quan đến nhau.
+
+Với Async và Await, ta có thể viết các thao tác bất đồng bộ giống như các thao tác đồng bộ (synchronous), giúp cho code trở nên dễ đọc hơn, dễ bảo trì hơn và tránh được callback hell (hiện tượng khi ta phải lồng nhiều callback vào nhau để xử lý các tác vụ bất đồng bộ).
+
+Async và Await cùng nhau hoạt động để giải quyết các vấn đề liên quan đến các thao tác bất đồng bộ trong JavaScript. Async là một từ khóa đặt trước một hàm để chỉ định rằng hàm đó là một hàm bất đồng bộ, còn Await là một từ khóa được sử dụng trong một hàm bất đồng bộ để tạm dừng việc thực thi hàm đó cho đến khi một Promise được giải quyết.
+
+- có một số điểm khác nhau giữa chúng:
+
+1. Cú pháp: Async/await được sử dụng với từ khóa async và await trong khi Promise sử dụng các phương thức then() và catch().
+
+2. Quản lý lỗi: Trong Async/await, lỗi được quản lý bằng try-catch block. Trong khi đó, với Promise, lỗi được quản lý thông qua hàm catch().
+
+3. Tính đồng bộ: Async/await giúp làm cho mã trông giống với mã đồng bộ, dễ đọc và hiểu hơn. Trong khi đó, Promise cho phép xử lý nhiều tác vụ bất đồng bộ cùng một lúc, làm cho nó phù hợp hơn với các tác vụ phức tạp.
+
+4. Sử dụng trong các hàm callback: Async/await có thể được sử dụng trong các hàm callback, trong khi Promise không thể.
+
+5. Tính khả dụng: Async/await có sẵn trong các phiên bản mới của JavaScript (ES2017) trong khi Promise có sẵn từ ES6.
+
+Tóm lại, Async/await và Promise đều là các công cụ hữu ích để xử lý bất đồng bộ trong JavaScript, và chúng có những ưu điểm riêng. Cách sử dụng phụ thuộc vào nhu cầu của dự án cụ thể.
+- có thể sử dụng Async/Await trong những trường hợp sau:
+
+1. Khi bạn cần thực hiện các yêu cầu HTTP bất đồng bộ từ máy chủ của mình hoặc các API khác.
+2. Khi bạn cần đọc hoặc ghi các tệp trên đĩa của bạn bất đồng bộ.
+3. Khi bạn cần truy vấn cơ sở dữ liệu của mình bất đồng bộ.
+4. Khi bạn cần thực hiện các tác vụ phức tạp, bao gồm sử dụng nhiều lệnh bất đồng bộ hoặc truy cập vào nhiều API khác nhau.
+5. Khi bạn cần đảm bảo rằng mã của bạn được thực thi theo đúng thứ tự và kết thúc trước khi chuyển sang phần tiếp theo.
+
+Async/Await được sử dụng để giải quyết vấn đề về callback hell, khi nhiều lệnh bất đồng bộ phải được sử dụng trong một chương trình. Sử dụng Async/Await giúp mã của bạn dễ đọc hơn và giúp bạn quản lý các yêu cầu bất đồng bộ một cách hiệu quả hơn.
 ****
 # ES6
+*** 
+## Khái niệm
+ES6 là tên viết tắt của phiên bản thứ 6 của ECMAScript, một tiêu chuẩn quốc tế cho các ngôn ngữ lập trình kịch bản. ECMAScript là cơ sở của các ngôn ngữ lập trình như JavaScript, ActionScript và JScript.
+
+ES6 cung cấp các tính năng mới và cải tiến cho JavaScript, làm cho việc lập trình trở nên dễ dàng hơn và tăng tính năng của ngôn ngữ. Dưới đây là danh sách các tính năng chính của ES6:
+
+1. Từ khóa let và const:
+
+Từ khóa let và const được sử dụng để khai báo biến trong JavaScript.
+Khác với từ khóa var, biến được khai báo bằng let và const có phạm vi chỉ nằm trong khối lệnh mà nó được khai báo.
+Từ khóa const được sử dụng để khai báo biến không thay đổi giá trị trong quá trình chạy.
+Ví dụ:
+```
+let x = 1;
+const y = 2;
+```
+2. Arrow function:
+
+Arrow function là cú pháp viết tắt của hàm trong JavaScript.
+Arrow function có thể sử dụng để viết ngắn gọn và đơn giản hóa cú pháp của hàm.
+Arrow function sử dụng dấu mũi tên (=>) để định nghĩa hàm.
+Ví dụ:
+```
+let sum = (a, b) => {
+  return a + b;
+}
+```
+3. Template literals:
+
+Template literals là cú pháp mới để tạo chuỗi trong JavaScript.
+Template literals sử dụng dấu `` để bao quanh chuỗi và có thể chứa biểu thức JavaScript được tính toán trước khi trả về chuỗi.
+Ví dụ:
+```
+let name = "Alice";
+console.log(`Hello ${name}!`);
+```
+4. Default function parameters:
+
+Default function parameters là cú pháp mới cho phép đặt giá trị mặc định cho tham số của hàm.
+Khi không truyền giá trị cho tham số, giá trị mặc định sẽ được sử dụng.
+Ví dụ:
+```
+function greet(name = "World") {
+  console.log(`Hello ${name}!`);
+}
+greet(); // "Hello World!"
+greet("Alice"); // "Hello Alice!"
+```
+5. Rest and spread operators:
+
+Rest và spread operators là cú pháp mới cho phép thao tác với mảng và đối tượng.
+Rest operator được sử dụng để tạo mảng từ nhiều tham số của hàm.
+Spread operator được sử dụng để tạo mảng mới bằng cách trộn các phần tử của các mảng khác nhau.
+Ví dụ:
+```
+function sum(...numbers) {
+  return numbers.reduce((total, num) => total + num, 0);
+}
+console.log(sum(1, 2, 3, 4)); // 10
+
+let arr1 = [1, 2, 3];
+let arr2 = [4, 5, 6];
+let newArr = [...arr1, ...arr2];
+console.log(newArr); // [1, 2, 3, 4, 5, 6]
+```
+6. Destructuring assignment:
+
+Destructuring assignment là cú pháp mới cho phép truy cập vào các phần tử của mảng hoặc đối tượng một cách dễ dàng.
+
+Destructuring assignment sử dụng cú pháp giống với khai báo biến để truy cập vào các phần tử của mảng hoặc đối tượng.
+Ví dụ:
+```
+let arr = [1, 2, 3];
+let [a, b, c] = arr;
+console.log(a); // 1
+console.log(b); // 2
+console.log(c); // 3
+
+let obj = {name: "Alice", age: 30};
+let {name, age} = obj;
+console.log(name); // "Alice"
+console.log(age); // 30
+```
+7. Classes:
+
+Classes là một cú pháp mới cho phép định nghĩa lớp trong JavaScript.
+Classes sử dụng từ khóa class để định nghĩa lớp và constructor để khởi tạo đối tượng.
+Các phương thức của lớp được định nghĩa bằng cú pháp giống như định nghĩa hàm.
+Ví dụ:
+```
+class Person {
+  constructor(name, age) {
+    this.name = name;
+    this.age = age;
+  }
+  greet() {
+    console.log(`Hello, my name is ${this.name} and I am ${this.age} years old.`);
+  }
+}
+
+let person = new Person("Alice", 30);
+person.greet(); // "Hello, my name is Alice and I am 30 years old."
+```
+8. Enhanced object literals:
+
+Enhanced object literals là cú pháp mới cho phép định nghĩa đối tượng trong JavaScript.
+Enhanced object literals sử dụng cú pháp ngắn gọn hơn cho phép định nghĩa thuộc tính và phương thức của đối tượng.
+Ví dụ:
+```
+let name = "Alice";
+let age = 30;
+let person = {
+  name,
+  age,
+  greet() {
+    console.log(`Hello, my name is ${this.name} and I am ${this.age} years old.`);
+  }
+};
+person.greet(); // "Hello, my name is Alice and I am 30 years old."
+```
+9. Promises:
+
+Promises là cú pháp mới cho phép xử lý bất đồng bộ trong JavaScript.
+Promises sử dụng cú pháp đơn giản hơn cho phép xử lý lỗi và giá trị trả về của một hàm bất đồng bộ.
+Ví dụ:
+```
+function fetchData() {
+  return new Promise((resolve, reject) => {
+    setTimeout(() => {
+      resolve("Data fetched successfully!");
+    }, 2000);
+  });
+}
+
+fetchData()
+  .then((data) => console.log(data))
+  .catch((error) => console.error(error));
+```
+10. Generators:
+
+Generators là cú pháp mới cho phép tạo ra một loại hàm đặc biệt trong JavaScript.
+Generators sử dụng từ khóa function* để định nghĩa và có thể dừng lại và tiếp tục từ điểm dừng đó.
+
+Generators sử dụng từ khóa yield để tạo ra các giá trị trả về cho đối tượng Generator.
+Ví dụ:
+```
+function* generatorFunction() {
+  yield 1;
+  yield 2;
+  yield 3;
+}
+
+let generator = generatorFunction();
+console.log(generator.next().value); // 1
+console.log(generator.next().value); // 2
+console.log(generator.next().value); // 3
+```
+11. Template literals:
+
+Template literals là cú pháp mới cho phép tạo ra chuỗi trong JavaScript.
+Template literals sử dụng cú pháp giống với các chuỗi thông thường nhưng cho phép sử dụng các biểu thức và biến trong chuỗi.
+Ví dụ:
+```
+let name = "Alice";
+let message = `Hello, my name is ${name}.`;
+console.log(message); // "Hello, my name is Alice."
+```
+12. Arrow functions:
+
+Arrow functions là cú pháp mới cho phép định nghĩa hàm trong JavaScript.
+Arrow functions sử dụng cú pháp ngắn gọn hơn cho phép truy cập vào biến this của hàm bên ngoài.
+Ví dụ:
+```
+let numbers = [1, 2, 3, 4, 5];
+let evenNumbers = numbers.filter((number) => number % 2 === 0);
+console.log(evenNumbers); // [2, 4]
+```
+13. Default parameters:
+
+Default parameters là cú pháp mới cho phép định nghĩa giá trị mặc định cho tham số của hàm trong JavaScript.
+Ví dụ:
+```
+function greet(name = "World") {
+  console.log(`Hello, ${name}!`);
+}
+
+greet(); // "Hello, World!"
+greet("Alice"); // "Hello, Alice!"
+```
+14. Rest parameters:
+
+Rest parameters là cú pháp mới cho phép định nghĩa một tham số cuối cùng trong danh sách tham số của hàm để nhận tất cả các tham số còn lại dưới dạng một mảng.
+Ví dụ:
+```
+function sum(...numbers) {
+  let result = 0;
+  for (let number of numbers) {
+    result += number;
+  }
+  return result;
+}
+
+console.log(sum(1, 2, 3)); // 6
+console.log(sum(4, 5, 6, 7)); // 22
+```
+
+***
 ## Write Arrow Functions with Parameters
 
 - Giống như một hàm thông thường, bạn có thể truyền tham số vào trong một hàm mũi tên (arrow function).
@@ -436,3 +718,39 @@ const [a, b,,, c] = [1, 2, 3, 4, 5, 6];
 console.log(a, b, c);
 ```
 Console sẽ hiển thị giá trị của a, b và c là 1, 2, 5.
+## Use Destructuring Assignment to Pass an Object as a Function's Parameters
+Trong một số trường hợp, bạn có thể sử dụng destructuring object trực tiếp trong đối số của một hàm.
+```
+const profileUpdate = (profileData) => {
+const { name, age, nationality, location } = profileData;
+
+}
+```
+Đoạn code này tương đương với việc destructuring đối tượng được truyền vào hàm. Điều này cũng có thể được thực hiện ngay tại chỗ:
+```
+const profileUpdate = ({ name, age, nationality, location }) => {
+
+}
+```
+Khi profileData được truyền vào hàm trên, các giá trị được destructured từ tham số hàm để sử dụng trong hàm.
+***
+## Template literal
+Template literal là một tính năng mới của ES6. Đây là một loại chuỗi đặc biệt giúp tạo chuỗi phức tạp dễ dàng hơn.
+
+Template literal cho phép bạn tạo chuỗi đa dòng và sử dụng tính năng string interpolation để tạo chuỗi.
+```
+const person = {
+name: "Zodiac Hasbro",
+age: 56
+};
+
+const greeting = Hello, my name is ${person.name}! I am ${person.age} years old.;
+
+console.log(greeting);
+```
+Trong đó, đoạn mã sử dụng dấu backticks (`) thay vì dấu ngoặc đơn (' hoặc ") để bao quanh chuỗi. Thứ hai, lưu ý rằng chuỗi là đa dòng, cả trong mã và đầu ra. Điều này giúp bạn không phải sử dụng \n trong chuỗi. 
+
+Cú pháp `${biến}` được sử dụng là một trình giữ chỗ. Theo cách này, bạn không cần phải sử dụng phép ghép chuỗi với phép toán + nữa. Để thêm biến vào chuỗi, bạn chỉ cần bỏ biến đó vào một chuỗi mẫu và bao quanh nó bằng `${ và }`. Tương tự, bạn có thể bao gồm các biểu thức khác trong chuỗi mẫu của mình, ví dụ như `${a + b}`. Cách tạo chuỗi mới này mang lại cho bạn nhiều tính linh hoạt hơn để tạo ra các chuỗi mạnh mẽ.
+****
+# OOP
+
