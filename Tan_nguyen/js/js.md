@@ -602,7 +602,59 @@ function sum(...numbers) {
 console.log(sum(1, 2, 3)); // 6
 console.log(sum(4, 5, 6, 7)); // 22
 ```
+***
+## JSON và AJAX
+1. Khái niệm
+- JSON (JavaScript Object Notation) là một định dạng dữ liệu phổ biến được sử dụng để truyền tải dữ liệu giữa các ứng dụng. Nó được lấy cảm hứng từ cú pháp đối tượng của JavaScript và cho phép các ứng dụng giao tiếp với nhau bằng cách truyền tải dữ liệu dưới dạng văn bản. JSON được sử dụng để lưu trữ và truyền tải dữ liệu dưới dạng một tập hợp các cặp key-value và có thể được chuyển đổi sang đối tượng JavaScript để thực hiện các xử lý dữ liệu.
 
+Có nhiều cách để lấy dữ liệu từ JSON, tùy thuộc vào ngôn ngữ và công cụ bạn sử dụng. Một cách phổ biến là sử dụng phương thức `fetch()` trong JavaScript1. Phương thức này cho phép bạn gửi yêu cầu đến một tài nguyên trên web và nhận về một đối tượng Promise chứa kết quả1. Bạn có thể sử dụng phương thức `json()` của đối tượng Promise để chuyển đổi kết quả thành một đối tượng JavaScript từ JSON
+
+- AJAX (Asynchronous JavaScript And XML) là một kỹ thuật cho phép gửi yêu cầu HTTP đến máy chủ và nhận phản hồi từ máy chủ mà không làm tải lại trang web. Khi sử dụng AJAX, trang web có thể thay đổi nội dung của mình mà không cần tải lại trang, giúp tăng trải nghiệm người dùng. AJAX thường được sử dụng để tải dữ liệu từ máy chủ và cập nhật nội dung của trang web mà không cần tải lại trang.
+
+Khi sử dụng AJAX để truyền tải dữ liệu giữa các ứng dụng, JSON thường được sử dụng để định dạng dữ liệu vì nó có cú pháp đơn giản, dễ đọc và dễ sử dụng, và có thể được chuyển đổi sang đối tượng JavaScript để thực hiện các xử lý dữ liệu. Tuy nhiên, AJAX không yêu cầu sử dụng JSON và có thể sử dụng các định dạng dữ liệu khác như XML hoặc HTML để truyền tải dữ liệu.
+
+2. Cách thức triển khai AJAX
+Để triển khai AJAX, cần sử dụng các kỹ thuật của JavaScript để gửi yêu cầu HTTP đến máy chủ và nhận phản hồi từ máy chủ mà không cần tải lại trang web. Các bước triển khai AJAX cơ bản như sau:
+
+- Tạo đối tượng XMLHttpRequest: Đối tượng này là đối tượng cơ bản của AJAX, được sử dụng để gửi yêu cầu đến máy chủ và nhận phản hồi từ máy chủ.
+
+- Thiết lập yêu cầu: Thiết lập các thông số yêu cầu như phương thức HTTP, URL, tham số, header, v.v.
+
+- Xử lý phản hồi: Xử lý phản hồi từ máy chủ bằng cách sử dụng các sự kiện như onreadystatechange và onload.
+
+- Gửi yêu cầu: Sử dụng đối tượng XMLHttpRequest để gửi yêu cầu đến máy chủ.
+
+- Cập nhật nội dung trang web: Cập nhật nội dung trang web bằng cách sử dụng kết quả trả về từ máy chủ.
+
+Một số thư viện và framework JavaScript phổ biến như jQuery, Axios, hay fetch đã hỗ trợ triển khai AJAX dễ dàng và nhanh chóng hơn bằng cách đóng gói các bước trên thành các hàm hoặc API.
+***
+## Fetch và Axios
+Fetch và Axios đều là các thư viện JavaScript được sử dụng để thực hiện các yêu cầu HTTP trong các ứng dụng web.  Cả hai đều hỗ trợ các phương thức như GET, POST, PUT, DELETE và cung cấp các tính năng như bắt lỗi, hủy request, chuyển đổi dữ liệu JSON.
+
+Tuy nhiên, chúng có một số khác biệt:
+
+1. Fetch là một API được xây dựng sẵn trong trình duyệt, trong khi Axios là một thư viện bên thứ ba cần được import vào ứng dụng JavaScript.
+
+2. Fetch sử dụng Promise để xử lý kết quả phản hồi, trong khi Axios sử dụng Promise và cũng hỗ trợ callback.
+
+3. Fetch trả về một đối tượng Response, trong khi Axios trả về một đối tượng Response được bọc trong một đối tượng Promise.
+
+4. Fetch không xử lý các lỗi mạng như Axios, nó chỉ bắn ra một lỗi lớp Application nếu có.
+
+Dưới đây là một ví dụ về cách sử dụng Fetch để gửi yêu cầu GET đến API của Github và lấy danh sách các repository của một người dùng:
+```
+fetch('https://api.github.com/users/octocat/repos')
+  .then(response => response.json())
+  .then(data => console.log(data))
+  .catch(error => console.error(error));
+```
+Và dưới đây là một ví dụ về cách sử dụng Axios để thực hiện cùng một yêu cầu GET:
+```
+axios.get('https://api.github.com/users/octocat/repos')
+  .then(response => console.log(response.data))
+  .catch(error => console.error(error));
+```
+Cả hai ví dụ đều sử dụng các phương thức fetch và axios để thực hiện yêu cầu GET đến API của Github và lấy danh sách các repository của người dùng "octocat". Tuy nhiên, cách sử dụng Promise và các đối tượng được trả về của hai thư viện này khác nhau.
 ***
 ## Write Arrow Functions with Parameters
 
