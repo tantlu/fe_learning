@@ -309,3 +309,130 @@ console.log(5 === 5); // true (cùng giá trị và kiểu dữ liệu)
 console.log(5 === true); // false (kiểu dữ liệu khác nhau)
 console.log(5 === false); // false (kiểu dữ liệu khác nhau)
 ```
+****
+## `var` và `let`
+Trong JavaScript, `var` và `let` là các từ khóa để khai báo biến.
+
+- `var` đã tồn tại trong JavaScript từ rất lâu và được sử dụng để khai báo biến toàn cục hoặc cục bộ. Khi bạn khai báo biến với `var` trong một hàm, biến đó sẽ được khai báo với phạm vi cục bộ trong hàm đó, có nghĩa là nó chỉ có thể được truy cập trong phạm vi của hàm đó. Tuy nhiên, nếu bạn khai báo biến với `var` bên ngoài bất kỳ hàm nào, biến đó sẽ trở thành biến toàn cục và có thể được truy cập từ bất kỳ đâu trong phạm vi chương trình.
+
+- `let` là một tính năng mới được giới thiệu trong phiên bản tiêu chuẩn của JavaScript (ES6). Khi bạn khai báo biến với `let`, biến đó sẽ chỉ tồn tại trong phạm vi khối (block scope) mà nó được khai báo, ví dụ như trong một hàm, một lệnh if, hoặc một vòng lặp for. Tương tự như `var`, khi bạn khai báo biến với `let` bên ngoài bất kỳ khối nào, biến đó sẽ trở thành biến toàn cục.
+
+Một điểm khác biệt quan trọng khác giữa `let` và `var` là `let` sẽ ném ra một lỗi khi bạn cố gắng truy cập biến trước khi nó được khai báo, trong khi `var` sẽ cho phép bạn truy cập vào giá trị của biến trước khi nó được khai báo, giá trị đó sẽ là undefined.
+
+
+****
+# ES6
+## Write Arrow Functions with Parameters
+
+- Giống như một hàm thông thường, bạn có thể truyền tham số vào trong một hàm mũi tên (arrow function).
+
+Ví dụ:
+```
+const doubler = (item) => item * 2;
+doubler(4);
+```
+Trong đó, doubler(4) sẽ trả về giá trị là 8.
+
+- Nếu một hàm mũi tên chỉ có một tham số, bạn có thể bỏ qua dấu ngoặc đơn () bao quanh tham số.
+
+Ví dụ:
+```
+const doubler = item => item * 2;
+```
+- Ngoài ra, bạn cũng có thể truyền nhiều hơn một tham số vào một hàm mũi tên.
+
+Ví dụ:
+```
+const multiplier = (item, multi) => item * multi;
+multiplier(4, 2);
+```
+****
+## toán tử spread
+ES6 giới thiệu toán tử spread, cho phép chúng ta mở rộng các mảng và biểu thức khác ở những nơi mà nhiều tham số hoặc phần tử được mong đợi.
+
+Đoạn mã ES5 dưới đây sử dụng `apply()` để tính giá trị lớn nhất trong một mảng:
+```
+var arr = [6, 89, 3, 45];
+var maximus = Math.max.apply(null, arr);
+```
+maximus sẽ có giá trị là 89.
+
+Chúng ta phải sử dụng `Math.max.apply(null, arr) `bởi vì `Math.max(arr)` trả về `NaN`. `Math.max()` mong đợi các đối số được phân tách bằng dấu phẩy, nhưng không phải là một mảng. Toán tử spread làm cho cú pháp này dễ đọc và bảo trì hơn.
+```
+const arr = [6, 89, 3, 45];
+const maximus = Math.max(...arr);
+```
+maximus sẽ có giá trị là 89.
+
+`...arr` trả về một mảng được mở rộng. Nói cách khác, nó trải mảng. Tuy nhiên, toán tử spread chỉ hoạt động tại chỗ, như trong đối số của một hàm hoặc trong một mảng chữ ký. Đoạn mã sau sẽ không hoạt động:
+
+`const spreaded = ...arr;`
+****
+## Destructuring assignment(phân giao)
+1. Destructuring là một cú pháp đặc biệt được giới thiệu trong ES6, cho phép gán giá trị trực tiếp từ một đối tượng một cách gọn gàng.
+
+Hãy xem xét đoạn mã ES5 sau:
+```
+const user = { name: 'John Doe', age: 34 };
+
+const name = user.name;
+const age = user.age;
+```
+Biến `name` sẽ có giá trị là chuỗi "John Doe" và biến `age` sẽ có giá trị là số 34.
+
+Dưới đây là một câu lệnh gán tương đương sử dụng cú pháp phân giao ES6:
+```
+const { name, age } = user;
+```
+Một lần nữa, biến `name` sẽ có giá trị là chuỗi "John Doe" và biến `age` sẽ có giá trị là số 34.
+
+Ở đây, các biến `name` và `age` sẽ được tạo ra và gán giá trị tương ứng của chúng từ đối tượng user. Bạn có thể trích xuất bao nhiêu giá trị từ đối tượng tùy thích.
+
+2. Destructuring cho phép bạn gán tên biến mới khi trích xuất giá trị. Bạn có thể làm điều này bằng cách đặt tên mới sau dấu `:` khi gán giá trị.
+
+- Sử dụng cùng đối tượng từ ví dụ trước:
+
+`const user = { name: 'John Doe', age: 34 };`
+
+- Dưới đây là cách bạn có thể đặt tên biến mới trong phép gán:
+
+`const { name: userName, age: userAge } = user;`
+
+Bạn có thể đọc nó như "lấy giá trị của user.name và gán cho một biến mới có tên là `userName`" và tương tự. Giá trị của `userName` sẽ là chuỗi John Doe và giá trị của userAge sẽ là số 34.
+
+3. Bạn có thể sử dụng các nguyên tắc giống như hai bài học trước để lấy các giá trị từ các đối tượng lồng nhau.
+
+Sử dụng một đối tượng tương tự như các ví dụ trước:
+```
+const user = {
+johnDoe: {
+age: 34,
+email: 'johnDoe@freeCodeCamp.com'
+}
+};
+```
+Dưới đây là cách trích xuất các giá trị của các thuộc tính của đối tượng và gán chúng vào các biến cùng tên:
+
+`const { johnDoe: { age, email }} = user;`
+
+Và đây là cách bạn có thể gán giá trị của các thuộc tính đối tượng vào các biến với tên khác nhau:
+```
+const { johnDoe: { age: userAge, email: userEmail }} = user;
+```
+4.`destructuring array` trở nên dễ dàng tương tự như `destructuring objects.`
+
+Một khác biệt quan trọng giữa `spread operator` và `destructuring array` là `spread operator` giải nén tất cả các phần tử của một mảng thành một danh sách phân cách bằng dấu phẩy. Do đó, bạn không thể lựa chọn các phần tử mà bạn muốn gán cho các biến.
+
+`Destructuring array` cho phép chúng ta làm chính xác điều đó:
+```
+const [a, b] = [1, 2, 3, 4, 5, 6];
+console.log(a, b);
+```
+Console sẽ hiển thị giá trị của a và b là 1, 2.
+
+Biến a được gán giá trị đầu tiên của mảng, và b được gán giá trị thứ hai của mảng. Chúng ta cũng có thể truy cập vào giá trị tại bất kỳ chỉ mục nào trong một mảng với destructuring bằng cách sử dụng dấu phẩy để đến chỉ mục mong muốn:
+```
+const [a, b,,, c] = [1, 2, 3, 4, 5, 6];
+console.log(a, b, c);
+```
+Console sẽ hiển thị giá trị của a, b và c là 1, 2, 5.
