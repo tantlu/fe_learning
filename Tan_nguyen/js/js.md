@@ -752,60 +752,176 @@ console.log(generator.next().value); // 2
 console.log(generator.next().value); // 3
 ```
 
-11. Template literals:
+## Giải thích Capturing và Bubbling
 
-Template literals là cú pháp mới cho phép tạo ra chuỗi trong JavaScript.
-Template literals sử dụng cú pháp giống với các chuỗi thông thường nhưng cho phép sử dụng các biểu thức và biến trong chuỗi.
+1. Để JavaScript có thể nhận biết được một sự kiện xảy ra trong DOM, bạn có thể sử dụng phương thức `addEventListener()` để đăng ký một xử lý sự kiện cho một phần tử HTML. Phương thức này có hai tham số: tên của sự kiện và hàm xử lý sự kiện. Khi sự kiện xảy ra, hàm xử lý sự kiện được gọi
+
 Ví dụ:
 
 ```
-let name = "Alice";
-let message = `Hello, my name is ${name}.`;
-console.log(message); // "Hello, my name is Alice."
+<button id="myButton">Click me</button>
+document.getElementById("myButton").addEventListener("click", function() {
+  alert("Hello world!");
+});
 ```
 
-12. Arrow functions:
+2. Capturing và Bubbling là hai cách xử lý sự kiện (event handling) trong JavaScript, đặc biệt là khi sự kiện được gọi trên một phần tử DOM con bên trong một phần tử DOM cha.
 
-Arrow functions là cú pháp mới cho phép định nghĩa hàm trong JavaScript.
-Arrow functions sử dụng cú pháp ngắn gọn hơn cho phép truy cập vào biến this của hàm bên ngoài.
-Ví dụ:
+Sự khác nhau giữa Capturing và Bubbling là cách sự kiện được lan truyền qua các phần tử trong cây DOM.
+
+- `Capturing`: khi một sự kiện xảy ra trên một phần tử, sự kiện sẽ bắt đầu từ phần tử cha và lan truyền xuống các phần tử con cho đến khi đến phần tử được kích hoạt. Theo cách này, sự kiện sẽ được xử lý từ phần tử cha đến phần tử con.
+
+- `Bubbling`: khi một sự kiện xảy ra trên một phần tử, sự kiện sẽ bắt đầu từ phần tử được kích hoạt và lan truyền lên đến các phần tử cha cho đến phần tử gốc của tài liệu (document). Theo cách này, sự kiện sẽ được xử lý từ phần tử con đến phần tử cha.
+
+---
+
+## Callback là gì? Giải thích event loop
+
+- Callback là một hàm được truyền vào một hàm khác như một đối số và được gọi bởi hàm đó sau khi hoàn thành công việc của nó. Callback thường được sử dụng để xử lý các tác vụ bất đồng bộ trong JavaScript, ví dụ như khi tải tệp hoặc dữ liệu từ máy chủ1
+
+- Event loop là một quá trình liên tục chạy trong JavaScript để giám sát cả call stack và callback queue. Nếu call stack không rỗng, event loop sẽ đợi cho đến khi nó rỗng và đưa hàm tiếp theo từ callback queue vào call stack. Nếu callback queue rỗng, không có gì xảy ra
+
+Dưới đây là một ví dụ về event loop trong JavaScript:
+
+```
+console.log('Hi');
+
+setTimeout(function() {
+  console.log('there');
+}, 5000);
+
+console.log('Bing');
+```
+
+Khi bạn chạy đoạn mã này, nó sẽ in ra “Hi”, sau đó đợi 5 giây và in ra “there”, và cuối cùng là “Bing”. Điều này xảy ra vì setTimeout được sử dụng để đặt một hàm vào callback queue, và nó sẽ không được thực thi cho đến khi call stack rỗng
+
+---
+
+## Array và Multidimensional Array là gì?
+
+1. Array là một kiểu dữ liệu trong JavaScript, được sử dụng để lưu trữ nhiều giá trị trong một biến. Một mảng có thể chứa bất kỳ kiểu dữ liệu nào, bao gồm các chuỗi, số và đối tượng. Mảng được đánh số bắt đầu từ 0, vì vậy phần tử đầu tiên của mảng có chỉ số 0.
+
+Ví dụ, ta có thể tạo một Array để lưu trữ các số nguyên như sau:
 
 ```
 let numbers = [1, 2, 3, 4, 5];
-let evenNumbers = numbers.filter((number) => number % 2 === 0);
-console.log(evenNumbers); // [2, 4]
 ```
 
-13. Default parameters:
-
-Default parameters là cú pháp mới cho phép định nghĩa giá trị mặc định cho tham số của hàm trong JavaScript.
-Ví dụ:
+Ta có thể truy cập các giá trị trong Array bằng chỉ số như sau:
 
 ```
-function greet(name = "World") {
-  console.log(`Hello, ${name}!`);
+Copy code
+console.log(numbers[0]); // 1
+console.log(numbers[1]); // 2
+console.log(numbers[2]); // 3
+```
+
+2. Multidimensional Array là một kiểu dữ liệu đặc biệt trong JavaScript, cho phép lưu trữ các Array khác bên trong một Array. Mỗi Array con trong Multidimensional Array được gọi là một phần tử, và các phần tử này có thể có số lượng các giá trị khác nhau.
+
+Ví dụ, ta có thể tạo một Multidimensional Array để lưu trữ thông tin về các học sinh và điểm số của họ như sau:
+
+```
+let students = [  ['Alice', 85, 90, 92],
+  ['Bob', 75, 80, 82],
+  ['Charlie', 95, 98, 100]
+];
+```
+
+Trong đó, mỗi phần tử là một Array con, chứa tên của học sinh và ba giá trị điểm số của họ. Ta có thể truy cập các giá trị trong Multidimensional Array bằng cách sử dụng chỉ số hai chiều như sau:
+
+```
+console.log(students[0][0]); // Alice
+console.log(students[1][2]); // 82
+console.log(students[2][1]); // 98
+```
+
+Multidimensional Array cũng có thể có nhiều chiều hơn hai, tùy thuộc vào nhu cầu lưu trữ và xử lý dữ liệu của ứng dụng.
+
+## làm thế nào để truy cập, thay đổi và lặp qua các phần tử của mảng?
+
+Để truy cập, thay đổi và lặp qua các phần tử của mảng trong JavaScript, ta có thể sử dụng các phương thức và toán tử như sau:
+
+1. Truy cập các phần tử của mảng:
+
+- Sử dụng toán tử index [] để truy cập các phần tử của mảng theo chỉ số:
+
+```
+let arr = [1, 2, 3];
+console.log(arr[0]); // 1
+console.log(arr[1]); // 2
+console.log(arr[2]); // 3
+```
+
+- Sử dụng phương thức forEach() để lặp qua các phần tử của mảng:
+
+```
+let arr = [1, 2, 3];
+arr.forEach(function(element) {
+  console.log(element);
+});
+```
+
+2. Thay đổi các phần tử của mảng:
+
+- Sử dụng toán tử index [] để thay đổi giá trị của các phần tử trong mảng:
+
+```
+let arr = [1, 2, 3];
+arr[0] = 4;
+console.log(arr); // [4, 2, 3]
+```
+
+- Sử dụng phương thức push() để thêm một phần tử vào cuối mảng:
+
+```
+let arr = [1, 2, 3];
+arr.push(4);
+console.log(arr); // [1, 2, 3, 4]
+```
+
+- Sử dụng phương thức pop() để xóa phần tử cuối cùng của mảng:
+
+```
+let arr = [1, 2, 3];
+arr.pop();
+console.log(arr); // [1, 2]
+```
+
+- Sử dụng phương thức splice() để thay đổi các phần tử của mảng:
+
+```
+let arr = [1, 2, 3];
+arr.splice(1, 1, 4, 5);
+console.log(arr); // [1, 4, 5, 3]
+```
+
+3. Lặp qua các phần tử của mảng:
+
+- Sử dụng vòng lặp for để lặp qua các phần tử của mảng theo chỉ số:
+
+```
+let arr = [1, 2, 3];
+for (let i = 0; i < arr.length; i++) {
+  console.log(arr[i]);
 }
-
-greet(); // "Hello, World!"
-greet("Alice"); // "Hello, Alice!"
 ```
 
-14. Rest parameters:
-
-Rest parameters là cú pháp mới cho phép định nghĩa một tham số cuối cùng trong danh sách tham số của hàm để nhận tất cả các tham số còn lại dưới dạng một mảng.
-Ví dụ:
+- Sử dụng phương thức forEach() để lặp qua các phần tử của mảng:
 
 ```
-function sum(...numbers) {
-  let result = 0;
-  for (let number of numbers) {
-    result += number;
-  }
-  return result;
+let arr = [1, 2, 3];
+arr.forEach(function(element) {
+  console.log(element);
+});
+```
+
+- Sử dụng vòng lặp for...of để lặp qua các phần tử của mảng:
+
+```
+let arr = [1, 2, 3];
+for (let element of arr) {
+  console.log(element);
 }
-
-console.log(sum(1, 2, 3)); // 6
-console.log(sum(4, 5, 6, 7)); // 22
 ```
 
 ---
@@ -856,18 +972,22 @@ Tuy nhiên, chúng có một số khác biệt:
 Dưới đây là một ví dụ về cách sử dụng Fetch để gửi yêu cầu GET đến API của Github và lấy danh sách các repository của một người dùng:
 
 ```
+
 fetch('https://api.github.com/users/octocat/repos')
-  .then(response => response.json())
-  .then(data => console.log(data))
-  .catch(error => console.error(error));
+.then(response => response.json())
+.then(data => console.log(data))
+.catch(error => console.error(error));
+
 ```
 
 Và dưới đây là một ví dụ về cách sử dụng Axios để thực hiện cùng một yêu cầu GET:
 
 ```
+
 axios.get('https://api.github.com/users/octocat/repos')
-  .then(response => console.log(response.data))
-  .catch(error => console.error(error));
+.then(response => console.log(response.data))
+.catch(error => console.error(error));
+
 ```
 
 Cả hai ví dụ đều sử dụng các phương thức fetch và axios để thực hiện yêu cầu GET đến API của Github và lấy danh sách các repository của người dùng "octocat". Tuy nhiên, cách sử dụng Promise và các đối tượng được trả về của hai thư viện này khác nhau.
@@ -881,8 +1001,10 @@ Cả hai ví dụ đều sử dụng các phương thức fetch và axios để 
 Ví dụ:
 
 ```
-const doubler = (item) => item * 2;
+
+const doubler = (item) => item \* 2;
 doubler(4);
+
 ```
 
 Trong đó, doubler(4) sẽ trả về giá trị là 8.
@@ -892,7 +1014,9 @@ Trong đó, doubler(4) sẽ trả về giá trị là 8.
 Ví dụ:
 
 ```
-const doubler = item => item * 2;
+
+const doubler = item => item \* 2;
+
 ```
 
 - Ngoài ra, bạn cũng có thể truyền nhiều hơn một tham số vào một hàm mũi tên.
@@ -900,8 +1024,10 @@ const doubler = item => item * 2;
 Ví dụ:
 
 ```
-const multiplier = (item, multi) => item * multi;
+
+const multiplier = (item, multi) => item \* multi;
 multiplier(4, 2);
+
 ```
 
 ---
@@ -913,8 +1039,10 @@ ES6 giới thiệu toán tử spread, cho phép chúng ta mở rộng các mản
 Đoạn mã ES5 dưới đây sử dụng `apply()` để tính giá trị lớn nhất trong một mảng:
 
 ```
+
 var arr = [6, 89, 3, 45];
 var maximus = Math.max.apply(null, arr);
+
 ```
 
 maximus sẽ có giá trị là 89.
@@ -922,8 +1050,10 @@ maximus sẽ có giá trị là 89.
 Chúng ta phải sử dụng `Math.max.apply(null, arr) `bởi vì `Math.max(arr)` trả về `NaN`. `Math.max()` mong đợi các đối số được phân tách bằng dấu phẩy, nhưng không phải là một mảng. Toán tử spread làm cho cú pháp này dễ đọc và bảo trì hơn.
 
 ```
+
 const arr = [6, 89, 3, 45];
 const maximus = Math.max(...arr);
+
 ```
 
 maximus sẽ có giá trị là 89.
@@ -941,10 +1071,12 @@ maximus sẽ có giá trị là 89.
 Hãy xem xét đoạn mã ES5 sau:
 
 ```
+
 const user = { name: 'John Doe', age: 34 };
 
 const name = user.name;
 const age = user.age;
+
 ```
 
 Biến `name` sẽ có giá trị là chuỗi "John Doe" và biến `age` sẽ có giá trị là số 34.
@@ -952,7 +1084,9 @@ Biến `name` sẽ có giá trị là chuỗi "John Doe" và biến `age` sẽ c
 Dưới đây là một câu lệnh gán tương đương sử dụng cú pháp phân giao ES6:
 
 ```
+
 const { name, age } = user;
+
 ```
 
 Một lần nữa, biến `name` sẽ có giá trị là chuỗi "John Doe" và biến `age` sẽ có giá trị là số 34.
@@ -976,12 +1110,14 @@ Bạn có thể đọc nó như "lấy giá trị của user.name và gán cho m
 Sử dụng một đối tượng tương tự như các ví dụ trước:
 
 ```
+
 const user = {
 johnDoe: {
 age: 34,
 email: 'johnDoe@freeCodeCamp.com'
 }
 };
+
 ```
 
 Dưới đây là cách trích xuất các giá trị của các thuộc tính của đối tượng và gán chúng vào các biến cùng tên:
@@ -991,7 +1127,9 @@ Dưới đây là cách trích xuất các giá trị của các thuộc tính c
 Và đây là cách bạn có thể gán giá trị của các thuộc tính đối tượng vào các biến với tên khác nhau:
 
 ```
+
 const { johnDoe: { age: userAge, email: userEmail }} = user;
+
 ```
 
 4.`destructuring array` trở nên dễ dàng tương tự như `destructuring objects.`
@@ -1001,8 +1139,10 @@ Một khác biệt quan trọng giữa `spread operator` và `destructuring arra
 `Destructuring array` cho phép chúng ta làm chính xác điều đó:
 
 ```
+
 const [a, b] = [1, 2, 3, 4, 5, 6];
 console.log(a, b);
+
 ```
 
 Console sẽ hiển thị giá trị của a và b là 1, 2.
@@ -1010,8 +1150,10 @@ Console sẽ hiển thị giá trị của a và b là 1, 2.
 Biến a được gán giá trị đầu tiên của mảng, và b được gán giá trị thứ hai của mảng. Chúng ta cũng có thể truy cập vào giá trị tại bất kỳ chỉ mục nào trong một mảng với destructuring bằng cách sử dụng dấu phẩy để đến chỉ mục mong muốn:
 
 ```
+
 const [a, b,,, c] = [1, 2, 3, 4, 5, 6];
 console.log(a, b, c);
+
 ```
 
 Console sẽ hiển thị giá trị của a, b và c là 1, 2, 5.
@@ -1021,18 +1163,22 @@ Console sẽ hiển thị giá trị của a, b và c là 1, 2, 5.
 Trong một số trường hợp, bạn có thể sử dụng destructuring object trực tiếp trong đối số của một hàm.
 
 ```
+
 const profileUpdate = (profileData) => {
 const { name, age, nationality, location } = profileData;
 
 }
+
 ```
 
 Đoạn code này tương đương với việc destructuring đối tượng được truyền vào hàm. Điều này cũng có thể được thực hiện ngay tại chỗ:
 
 ```
+
 const profileUpdate = ({ name, age, nationality, location }) => {
 
 }
+
 ```
 
 Khi profileData được truyền vào hàm trên, các giá trị được destructured từ tham số hàm để sử dụng trong hàm.
@@ -1046,6 +1192,7 @@ Template literal là một tính năng mới của ES6. Đây là một loại c
 Template literal cho phép bạn tạo chuỗi đa dòng và sử dụng tính năng string interpolation để tạo chuỗi.
 
 ```
+
 const person = {
 name: "Zodiac Hasbro",
 age: 56
@@ -1054,6 +1201,7 @@ age: 56
 const greeting = Hello, my name is ${person.name}! I am ${person.age} years old.;
 
 console.log(greeting);
+
 ```
 
 Trong đó, đoạn mã sử dụng dấu backticks (`) thay vì dấu ngoặc đơn (' hoặc ") để bao quanh chuỗi. Thứ hai, lưu ý rằng chuỗi là đa dòng, cả trong mã và đầu ra. Điều này giúp bạn không phải sử dụng \n trong chuỗi.
@@ -1081,9 +1229,11 @@ IIFE là viết tắt của `Immediately Invoked Function Expression` (biểu th
 Ví dụ:
 
 ```
+
 (function () {
-  // Khai báo và thực thi mã trong hàm này
+// Khai báo và thực thi mã trong hàm này
 })();
+
 ```
 
 Trong đoạn mã này, chúng ta sử dụng cặp dấu ngoặc đơn bao bọc một hàm, sau đó sử dụng toán tử gọi hàm () ngay sau đó để thực thi hàm đó. Do đó, hàm này sẽ được thực thi ngay lập tức sau khi được định nghĩa.
@@ -1093,3 +1243,7 @@ IIFE thường được sử dụng để tạo một phạm vi biến cục b�
 ---
 
 # OOP
+
+```
+
+```
