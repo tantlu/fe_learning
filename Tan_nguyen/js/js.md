@@ -843,7 +843,7 @@ Multidimensional Array cũng có thể có nhiều chiều hơn hai, tùy thuộ
 
 1. Truy cập các phần tử của mảng:
 
-- Sử dụng toán tử index [] để truy cập các phần tử của mảng theo chỉ số:
+- Sử dụng toán tử `index []` để truy cập các phần tử của mảng theo chỉ số:
 
 ```
 let arr = [1, 2, 3];
@@ -852,7 +852,7 @@ console.log(arr[1]); // 2
 console.log(arr[2]); // 3
 ```
 
-- Sử dụng phương thức forEach() để lặp qua các phần tử của mảng:
+- Sử dụng phương thức `forEach()` để lặp qua các phần tử của mảng:
 
 ```
 let arr = [1, 2, 3];
@@ -863,7 +863,7 @@ arr.forEach(function(element) {
 
 2. Thay đổi các phần tử của mảng:
 
-- Sử dụng toán tử index [] để thay đổi giá trị của các phần tử trong mảng:
+- Sử dụng toán tử `index []` để thay đổi giá trị của các phần tử trong mảng:
 
 ```
 let arr = [1, 2, 3];
@@ -871,7 +871,7 @@ arr[0] = 4;
 console.log(arr); // [4, 2, 3]
 ```
 
-- Sử dụng phương thức push() để thêm một phần tử vào cuối mảng:
+- Sử dụng phương thức `push()` để thêm một phần tử vào cuối mảng:
 
 ```
 let arr = [1, 2, 3];
@@ -879,7 +879,7 @@ arr.push(4);
 console.log(arr); // [1, 2, 3, 4]
 ```
 
-- Sử dụng phương thức pop() để xóa phần tử cuối cùng của mảng:
+- Sử dụng phương thức `pop()` để xóa phần tử cuối cùng của mảng:
 
 ```
 let arr = [1, 2, 3];
@@ -887,7 +887,7 @@ arr.pop();
 console.log(arr); // [1, 2]
 ```
 
-- Sử dụng phương thức splice() để thay đổi các phần tử của mảng:
+- Sử dụng phương thức `splice()` để thay đổi các phần tử của mảng:
 
 ```
 let arr = [1, 2, 3];
@@ -897,7 +897,7 @@ console.log(arr); // [1, 4, 5, 3]
 
 3. Lặp qua các phần tử của mảng:
 
-- Sử dụng vòng lặp for để lặp qua các phần tử của mảng theo chỉ số:
+- Sử dụng vòng lặp `for` để lặp qua các phần tử của mảng theo chỉ số:
 
 ```
 let arr = [1, 2, 3];
@@ -906,7 +906,7 @@ for (let i = 0; i < arr.length; i++) {
 }
 ```
 
-- Sử dụng phương thức forEach() để lặp qua các phần tử của mảng:
+- Sử dụng phương thức `forEach()` để lặp qua các phần tử của mảng:
 
 ```
 let arr = [1, 2, 3];
@@ -915,7 +915,7 @@ arr.forEach(function(element) {
 });
 ```
 
-- Sử dụng vòng lặp for...of để lặp qua các phần tử của mảng:
+- Sử dụng vòng lặp `for...of` để lặp qua các phần tử của mảng:
 
 ```
 let arr = [1, 2, 3];
