@@ -207,9 +207,13 @@ Trong đó, `break` được sử dụng để kết thúc khối lệnh của m
 
 ## Prototype và prototype inheritance(cần bổ sung)
 
-Trong JavaScript, mọi đối tượng đều có một thuộc tính prototype, Nó cho phép một object kế thừa các đặc tính của object khác thông qua prototype inheritance1. Bản thân prototype cũng là một object và chứa các thuộc tính và phương thức mà object có thể kế thừa2.
+Prototype là một tính năng trong JavaScript cho phép đối tượng được tạo ra bằng cách sử dụng một đối tượng khác làm mẫu (prototype) để kế thừa các thuộc tính và phương thức từ đối tượng mẫu đó. Mỗi đối tượng trong JavaScript đều có một prototype, mà là một đối tượng khác.
 
-Prototype inheritance trong JavaScript cho phép đối tượng con thừa kế các thuộc tính và phương thức của đối tượng cha thông qua prototype của nó. Khi một thuộc tính hoặc phương thức được gọi trên một đối tượng, JavaScript trước tiên kiểm tra xem đối tượng đó có thuộc tính hoặc phương thức đó không. Nếu không, nó sẽ tìm kiếm trong prototype của đối tượng đó. Nếu prototype cũng không có, nó sẽ tìm kiếm trong prototype của prototype và tiếp tục như vậy cho đến khi nó tìm thấy thuộc tính hoặc phương thức đó hoặc đến khi không còn prototype nào để tìm kiếm.
+gần như tất cả mọi thứ trong Javascript là Object. Để implement cái tính năng kế thừa, thì mỗi một Object sẽ ngầm chứa trong nó một thuộc tính có giá trị là một "con trỏ" (hay "tham chiếu") tới một Object khác, cái Object khác đó được đặt cho một cái tên mỹ miều là Prototype.
+
+Ví dụ, trong Object B có chứa một liên kết (hay con trỏ, hay tham chiếu,...đều như nhau cả) tới Object A. Ta sẽ gọi Object A là Prototype của Object B.
+
+Prototype inheritance là quá trình kế thừa các thuộc tính và phương thức của một đối tượng mẫu (prototype) cho các đối tượng con. Khi một đối tượng con được tạo ra, nó kế thừa các thuộc tính và phương thức của đối tượng mẫu của nó thông qua prototype. Điều này cho phép các đối tượng con chia sẻ các thuộc tính và phương thức chung với đối tượng mẫu, và giúp giảm thiểu mã lặp lại trong chương trình. Khi một thuộc tính hoặc phương thức được gọi trên một đối tượng con, JavaScript sẽ tìm kiếm nó trong đối tượng con trước, sau đó tiếp tục tìm kiếm trong prototype của đối tượng con, cho đến khi tìm thấy hoặc kết quả là undefined.
 
 ---
 
