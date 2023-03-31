@@ -409,8 +409,7 @@ Tuy nhiên, có một số sự khác biệt quan trọng giữa hai hàm này:
 
 - Cả hai hàm đều trả về một ID cho việc xóa hoặc hủy lịch trình, tuy nhiên, ID được trả về bởi `setInterval` là duy nhất và có thể được sử dụng để ngừng hoặc hủy lịch trình được tạo ra bởi chính nó, trong khi ID được trả về bởi `setTimeout` có thể không duy nhất và có thể được sử dụng để hủy lịch trình được tạo ra bởi các hàm khác.
 
-Vì vậy, khi muốn thực hiện một tác vụ sau một khoảng thời gian nhất định, bạn nên sử dụng `setTimeout`. Khi muốn lặp đi lặp lại một tác vụ với một khoảng thời gian cố định giữa mỗi lần thực hiện, bạn nên sử dụng `setInterval`.
-
+Giống nhau cùng đếm liên tục, còn `setInterval` chỉ cần load hàm 1 lần còn `setTimeout` thì cần load hàm nhiều lần
 ---
 
 ## Có những cách nào để lưu trữ lại dữ liệu trên máy của user? Giải thích cụ thể
