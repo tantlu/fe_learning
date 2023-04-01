@@ -1,5 +1,7 @@
 # Summary
+
 ## React là gì?
+
 Trước tiên chúng ta sẽ định nghĩa React là gì.
 
 - React là một thư viện được phát triển dựa trên Javascript, nó tới với trái đất để xây dựng giao diện người dùng.
@@ -29,6 +31,7 @@ Trước tiên chúng ta sẽ định nghĩa React là gì.
 - Khi sử dụng các biểu thức JavaScript trong JSX, bạn phải đặt chúng trong cặp dấu ngoặc nhọn {}. Ví dụ: `<div>{myVariable}</div>`.
 
 - Sau khi được compilation convert về javascript thì tất cả sẽ được convert về kiểu function và object và JSX Expressions cũng không là ngoại lệ. Vì vậy JSX Expressions còn có thể sử dụng trong các câu lệnh if, vòng lặp for,...
+
 ```
 function getGreeting(user) {
   if (user) {
@@ -37,10 +40,11 @@ function getGreeting(user) {
   return <h1>Hello, Stranger.</h1>;
 }
 ```
+
 - Để gán value cho các attribute các bạn có thể sử dụng 2 cách:
 
-    1. sử dụng dấu quote "" (quotes)
-    2. sử dụng dấu ngoặc nhọn** {}** (curly braces)
+  1. sử dụng dấu quote "" (quotes)
+  2. sử dụng dấu ngoặc nhọn** {}** (curly braces)
 
 Sử dụng dấu Quote để gán giá trị attribute
 
@@ -105,53 +109,62 @@ my-react-app/
 - package.json: chứa các thông tin về ứng dụng và các phụ thuộc của nó.
 
 - README.md: là file hướng dẫn cho người dùng sử dụng ứng dụng.
+
 4. Về cơ bản, JSX chỉ cung cấp cú pháp đặc biệt cho hàm ` React.createElement(component, props, ...children)`
 5. JSX Prevents Injection Attacks
-Everything is converted to a string before being rendered.
+   Everything is converted to a string before being rendered.
 
 Tất cả các JSX Epressions sau khi được chạy trả về kết quả thì tất cả các giá trị trả về đều sẽ được convert hết về string, đảm bảo rằng không có một đoạn code thực thi nào được chạy sau khi convert, điều này giảm thiểu tối đa việc tấn công bằng XSS (cross-site-scripting)
 
 ## Rendering Elements
+
 Elements được định nghĩa là đối tượng nhỏ nhất trong một ứng dụng React, và nó là gì
 
 - React element không phải là DOM element
 - React element nó là một plain objects
 - Một React element sẽ mô tả những gì sẽ mà bạn muốn hiển thị trên page
-Như đã nói ở trên thì React element không phải là một DOM element và nó sẽ được React DOM mapping với brower DOM element.
+  Như đã nói ở trên thì React element không phải là một DOM element và nó sẽ được React DOM mapping với brower DOM element.
+
 ### Rendering an Element into the DOM
+
 - Các ứng dụng được xậy dựng bằng React thì mặc định sẽ có một node gọi là "root" và toàn bộ mọi thứ được chứa trong thẻ "root" thì đều được quản lý bởi React DOM
 - Về cơ bản thì đây sẽ là node ngoài cùng của React, và với ReactJS thì thường sẽ là 1 thẻ div
-`<div id="root"></div>`
+  `<div id="root"></div>`
 
-    1. Giữa các node "root" thì sẽ được cô lập và độc lập với nhau
-    2. Các ứng dụng có thể define nhiều node root và các "root" được xác định bằng cách truyền id vào function ReactDOM.render()
+      1. Giữa các node "root" thì sẽ được cô lập và độc lập với nhau
+      2. Các ứng dụng có thể define nhiều node root và các "root" được xác định bằng cách truyền id vào function ReactDOM.render()
 
-        ```
-        const element = <h1>Hello, world</h1>;
-        ReactDOM.render(element, document.getElementById('root'));
-        ```
+          ```
+          const element = <h1>Hello, world</h1>;
+          ReactDOM.render(element, document.getElementById('root'));
+          ```
+
 ### Updating the Rendered Element
-Một React element là các đối tượng bất biến (immutable), nói một cách khác thì một khi các element được sinh ra thì ko thể bị thay đổi
 
+Một React element là các đối tượng bất biến (immutable), nói một cách khác thì một khi các element được sinh ra thì ko thể bị thay đổi
 
 Một cách ví von từ phía FB thì mỗi element thì mỗi element như là một khung hình trong một bộ phim vậy nó sẽ không bao giờ bị thay đổi.
 
 Vậy React làm cách nào để update UI. Đơn giản React sẽ tạo ra một element MỚI, đưa nó vào function ReactDOM.render() và toàn bộ giao diện sẽ được render lại.
 
 => Để update UI trên page thì React sẽ tạo ra element mới và đưa nó vào ReactDOM.render() để render lại page Nghe thì có vẻ như không được perfomance lắm nhưng trên thực tế trước khi xử lý việc render lại UI thì React có một bước đó là kiểm tra lại toàn bộ các node trong page và chỉ update lại các node có sự thay đổi.
+
 ### React Render Lifecycle
+
 Ở các thông tin phía trên thì đã mô tả về cách thức render ra html của React và câu hỏi tiếp theo là quy trình sẽ diễn ra như thế nào. React sẽ thực hiện Render khi có sự thay đổi về state hoặc prop tương ứng nhưu vậy thì sẽ có 2 thời điểm mà React sẽ thực hiện việc render
 
 - Mounting: thời điểm Component được khởi tạo
 - Updating: thời điểm Component được update state hoặc prop
-![demo](https://images.viblo.asia/c904d01b-b340-46ad-af24-099fb8fde672.jpeg)
+  ![demo](https://images.viblo.asia/c904d01b-b340-46ad-af24-099fb8fde672.jpeg)
 
 1. Render Phase : trong giai đoạn này, React chỉ xử lý và tạo ra các elements dựa trên props và state, mà không gây ảnh hưởng đến bất kỳ thành phần nào khác trong ứng dụng.
 
-    Trong quá trình này, React có thể tạm dừng, hủy bỏ hoặc khởi động lại quá trình render phụ thuộc vào các điều kiện, nhưng không ảnh hưởng đến các thành phần khác trong ứng dụng.
+   Trong quá trình này, React có thể tạm dừng, hủy bỏ hoặc khởi động lại quá trình render phụ thuộc vào các điều kiện, nhưng không ảnh hưởng đến các thành phần khác trong ứng dụng.
 
-    Giai đoạn Render là giai đoạn quan trọng của React, đảm bảo rằng các elements được tạo ra và hiển thị trên màn hình đúng cách và theo như mong đợi của người dùng.
+   Giai đoạn Render là giai đoạn quan trọng của React, đảm bảo rằng các elements được tạo ra và hiển thị trên màn hình đúng cách và theo như mong đợi của người dùng.
+
 ### Components and Props
+
 1. Components
 
 ReactJs là sẽ chia nhỏ page thành các phần nhỏ (components) và các components hướng tới việc hoạt động độc lập với nhau. Còn về mặt hoạt động thì các Component vẫn là một Javascript Function, có thể truyền tùy ý Parameter (Props).
@@ -160,18 +173,21 @@ ReactJs là sẽ chia nhỏ page thành các phần nhỏ (components) và các 
 
 Khi sử dụng ReactJS chúng ta sẽ có 2 cách để định nghĩa 1 Component:
 
-* Function
-* Class
+- Function
+- Class
 
 Cách đơn giản nhất là sử dụng Function:
+
 ```
 function Welcome(props) {
   return <h1>Hello, {props.name}</h1>;
 }
 ```
+
 "Function" đáp ứng được yêu cầu của một component, nó nhận vào một Props (Props có thể là bất cứ là gì) và nó trả về một React Element. "Function" được sử dụng để làm component khi đó là một Component đơn giản, ít xử lý về logic hay các life cycle của React.
 
 Còn ở một mức độ phức tạp hơn thì chúng ta sử dụng Class. Lưu ý là sử dụng ES6 để định nghĩa một class là Component.
+
 ```
 class Welcome extends React.Component {
   render() {
@@ -179,6 +195,7 @@ class Welcome extends React.Component {
   }
 }
 ```
+
 Class thì nó có nhiều chức năng hơn là một Function, chúng ta có thể handle các Life Cyle hay nói một cách khác, chúng ta nên sử dụng Class khi cần xử lý nhiều logic hay cần handle data ở nhiều thời điểm.
 
 3. Rendering a Component
@@ -194,6 +211,7 @@ Cơ chế hoạt động như sau:
 **Bởi vì DOM tags bắt đầu bằng các ký tự viết thường nên các Component phải viết hoa để tránh nhầm lẫn giữa 2 bên**
 
 4. Extracting Components
+
 ```
 function Comment(props) {
   return (
@@ -218,6 +236,7 @@ function Comment(props) {
 }
 
 ```
+
 Props có chứa cả 3 loại data:
 
 - author (object)
@@ -225,3 +244,116 @@ Props có chứa cả 3 loại data:
 - date (date)
 
 Cả loại đều được sử dụng trong Component Comment, nhìn vào thì chúng ta sẽ thấy khá là rối và thực sự điều này là không tốt cho việc mainteance: Component nếu phân tích ra sẽ có các phần sau:
+
+```
+<div className="UserInfo">
+        <img className="Avatar"
+          src={props.author.avatarUrl}
+          alt={props.author.name}
+        />
+</div>
+```
+
+```
+ <div className="Comment-text">
+        {props.text}
+</div>
+```
+
+```
+<div className="Comment-date">
+        {formatDate(props.date)}
+</div>
+```
+
+Nếu như sau này cần sửa một trong 3 phần trên sẽ khá là rối mắt khi chúng ta cần tìm giới hạn của các phần trên. Và lợi thế của Component sẽ được thể hiện như sau: Chúng ta sẽ cùng chia nhỏ Component Comment thành các Component nhỏ hơn:
+
+1. Component Avatar
+
+```
+function Avatar(props){
+    return (
+        <img className="Avatar"
+          src={props.author.avatarUrl}
+          alt={props.author.name}
+        />
+    );
+}
+```
+
+Vì sao khi tạo Component Avatar thì ko sử dụng name là "author" mà sử dụng "user", thì bởi vì như sau:
+
+Component Avatar có thể sử dụng nhiều nơi khác nữa nên việc sử dụng name "user" sẽ dễ dàng hơn cho việc đọc code.
+
+Cho nên ở Component Component chúng ta chỉ việc truyền vào Component Avatar attribute "user" = "author"
+
+```
+function Comment(props) {
+  return (
+    <div className="Comment">
+      <div className="UserInfo">
+        <Avatar user={props.author}/>
+        <div className="UserInfo-name">
+          {props.author.name}
+        </div>
+      </div>
+      <div className="Comment-text">
+        {props.text}
+      </div>
+      <div className="Comment-date">
+        {formatDate(props.date)}
+      </div>
+    </div>
+  );
+}
+```
+
+Nhìn code có vẻ vẫn hơi dài nhỉ. Mọi người có thể thấy chúng ta có thể tách `<div className="UserInfo">` làm một Component nữa. Dựa vào đâu để tách như vậy:
+
+=> Tập trung vào mục đích sử dụng của Component, trong trường hợp này thì <div className="UserInfo"> sẽ là Component chịu trách nhiệm hiển thị toàn bộ thông tin của user, bao gồm avtar và tên
+
+Và Component UserInfo sẽ được thiết kế như sau:
+
+```
+function UserInfo(){
+    return (
+        <div className="UserInfo">
+            <Avatar user={props.user}>
+            <div className="UserInfo-name">
+                {props.user.name}
+            </div>
+        </div>
+    )
+}
+```
+
+sau đó viết lại đoạn code ban đầu
+
+```
+function Comment(props) {
+  return (
+    <div className="Comment">
+      <UserInfo user={props.author} />
+      <div className="Comment-text">
+        {props.text}
+      </div>
+      <div className="Comment-date">
+        {formatDate(props.date)}
+      </div>
+    </div>
+  );
+}
+
+```
+**Note: Việc Extra Component thì có các note như sau:**
+
+- **Nên tính toán trước từ đầu để có thể dễ dàng tái sử dụng, tránh trường hợp code xong rồi mới nghĩ tới việc tách nhỏ Component**
+- **Nên list hết các Component sử dụng nhiều trong App và tạo sẵn các Component đó, ví dụ như: Button, Panel, Avatar,...**
+
+5. Props are Read-Only
+
+Trong React, props (viết tắt của properties) là một cách để truyền dữ liệu từ component cha sang component con. Khi một component được khởi tạo với một bộ props cụ thể, giá trị của chúng sẽ không thể được thay đổi bên trong component đó.
+
+Nói cách khác, props là "Read-Only", có nghĩa là chúng ta không nên thay đổi giá trị của các props trong component con. Nếu chúng ta cố gắng thay đổi giá trị của một prop, React sẽ không cho phép và thông báo lỗi trong quá trình runtime. Và React của chúng ta thì tuân theo một rule duy nhất đó "Pure Function" : Pure function là các function không làm thay đổi giá trị đầu vào và luôn trả về 1 kiểu định dạng
+
+Điều này là để đảm bảo tính nhất quán và dễ dàng theo dõi trong quá trình phát triển ứng dụng, giúp giảm thiểu các lỗi khó kiểm tra do thay đổi giá trị của props trong quá trình thực thi.
