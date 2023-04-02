@@ -345,6 +345,7 @@ function Comment(props) {
 }
 
 ```
+
 **Note: Việc Extra Component thì có các note như sau:**
 
 - **Nên tính toán trước từ đầu để có thể dễ dàng tái sử dụng, tránh trường hợp code xong rồi mới nghĩ tới việc tách nhỏ Component**
@@ -357,3 +358,441 @@ Trong React, props (viết tắt của properties) là một cách để truyề
 Nói cách khác, props là "Read-Only", có nghĩa là chúng ta không nên thay đổi giá trị của các props trong component con. Nếu chúng ta cố gắng thay đổi giá trị của một prop, React sẽ không cho phép và thông báo lỗi trong quá trình runtime. Và React của chúng ta thì tuân theo một rule duy nhất đó "Pure Function" : Pure function là các function không làm thay đổi giá trị đầu vào và luôn trả về 1 kiểu định dạng
 
 Điều này là để đảm bảo tính nhất quán và dễ dàng theo dõi trong quá trình phát triển ứng dụng, giúp giảm thiểu các lỗi khó kiểm tra do thay đổi giá trị của props trong quá trình thực thi.
+
+### State and Lifecycle
+
+**React Lifecycle**
+
+1. Lifecycle of Components
+
+Mỗi React class component có một vòng đời mà bạn có thể theo dõi và thao tác trong ba giai đoạn chính của nó.
+
+Một khái niệm cơ bản và xuyên suốt trong React đó chính là component.
+
+- Về cơ bản Component cho phép bạn chia giao diện người dùng thành các phần độc lập và có thể tái sử dụng và có logic xử lý riêng biệt.
+- Về mặt khái niệm, các component giống như các hàm JavaScript. Chúng nhận các giá trị đầu vào (được gọi là “props”) và trả về các phần tử React mô tả những gì sẽ xuất hiện trên màn hình.
+- Có 2 loại Component là Function Component, Class Component.
+- Class components - Chúng phức tạp hơn functional components ở chỗ nó còn có: phương thức khởi tạo, life-cycle, hàm render() và quản lý state (data).
+- một React class component là:
+
+  - là một class ES6, nó sẽ là một component khi nó "kế thừa" React component.
+  - có thể nhận props (trong hàm khởi tạo) nếu cần.
+  - có thể maintain data của nó với state
+  - phải có 1 method render() trả về 1 React element (JSX), or null
+
+- Các React class component có một đối tượng trạng thái (state) được tích hợp sẵn.
+
+  - Đối tượng state là nơi bạn lưu trữ các giá trị thuộc tính thuộc về component.
+
+  - Khi đối tượng trạng thái thay đổi, component sẽ được hiển thị lại.
+
+NOTE: Luôn sử dụng phương thức setState () để thay đổi đối tượng state, nó sẽ đảm bảo rằng component biết nó đã được cập nhật và gọi phương thức render () để hiển thị lại dữ liệu cho chính xác (và tất cả các phương thức vòng đời khác). 2. Ba giai đoạn là: Mounting, Updating, and Unmounting.
+
+- **Mounting**
+
+Mounting - mình dịch trên GG có nghĩa là "gắn"; nên có thể hiểu đơn giản Mounting có nghĩa là gắn các component vào DOM. Ở giai đoạn này React có bốn phương thức tích hợp được gọi, theo thứ tự này, khi gắn kết một thành phần:
+
+- constructor()
+- static getDerivedStateFromProps()
+- render() \*
+- componentDidMount()
+  Phương thức render () là bắt buộc và sẽ luôn được gọi, các phương thức khác là tùy chọn và sẽ được gọi nếu bạn định nghĩa lại chúng (OverRiding).
+- **Updating**
+  Giai đoạn tiếp theo trong vòng đời là khi một component được cập nhật.
+
+Một component được cập nhật bất cứ khi nào có thay đổi về state hoặc props của thành phần.
+
+Ở giai đoạn này React có năm phương thức tích hợp được gọi, theo thứ tự này, khi một thành phần được cập nhật:
+
+- static getDerivedStateFromProps()
+
+- shouldComponentUpdate()
+
+- render() \*
+
+- getSnapshotBeforeUpdate()
+
+- componentDidUpdate()
+
+Phương thức render () là bắt buộc và sẽ luôn được gọi, các phương thức khác là tùy chọn và sẽ được gọi nếu bạn định nghĩa lại chúng (OverRiding).
+
+- **Unmounting**
+
+Giai đoạn tiếp theo trong vòng đời là khi một component bị xóa khỏi DOM, hoặc bị ngắt kết nối.
+
+React chỉ có một phương thức tích hợp được gọi khi một component được ngắt kết nối:
+
+componentWillUnmount()
+
+3. Chi tiết các hàm
+
+- `constructor()`
+  Tương tự với các ngôn ngữ lập trình hướng đối tương khác.
+
+`constructor()` là phương thức được gọi đầu tiên, ngày sau khi component được khởi tạo và nó là nơi để khởi tạo trạng thái ban đầu và các giá trị ban đầu khác cho component.
+
+Phương thức `constructor()` được gọi với props, như là các tham số, và bạn phải luôn bắt đầu bằng cách gọi super (props) trước bất kỳ thứ gì khác, điều này sẽ khởi tạo phương thức constructor của cha và cho phép thành phần kế thừa các phương thức từ cha của nó.
+
+`contructor()` luôn được gọi khi bạn khởi tạo đối tượng.
+
+```
+class Car extends React.Component {
+  constructor(props) {
+    super(props);
+    this.state = {favoritecolor: "green"};
+  }
+  render() {
+    return (
+      <h1>My Favorite Color is {this.state.favoritecolor}</h1>
+    );
+  }
+}
+```
+
+- static `getDerivedStateFromProps()`
+  Ở giai đoạn Mounting
+
+Phương thức `getDerivedStateFromProps()` được gọi ngay trước khi render component trong DOM.
+
+Đây là nơi để thiết lập đối tượng State dựa trên các props ban đầu.
+
+Nó nhận State như một tham số và trả về một đối tượng có các thay đổi state.
+
+Ví dụ bên dưới bắt đầu với màu yêu thích là "green", nhưng phương thức `getDerivedStateFromProps()` cập nhật màu yêu thích dựa trên thuộc tính favcol được truyền vào hàm render():
+
+```
+class Header extends React.Component {
+  constructor(props) {
+    super(props);
+    this.state = {favoritecolor: "green"};
+  }
+
+  static getDerivedStateFromProps(props, state) {
+    return {favoritecolor: props.favcolor};
+  }
+
+  render() {
+    return (
+      <h1>My Favorite Color is {this.state.favoritecolor}</h1>
+    );
+  }
+}
+
+ReactDOM.render(<Header favcolor="yellow"/>, document.getElementById('root'));
+```
+
+Tại giai đoạn UPDATE, phương thức getDerivedStateFromProps cũng được gọi đầu tiên khi một component được cập nhật.
+
+Đây vẫn là nơi để thiết lập State dựa trên các props ban đầu.
+
+Ví dụ bên dưới có một nút thay đổi màu yêu thích thành màu xanh, nhưng vì phương thức getDerivedStateFromProps () được gọi, cập nhật trạng thái với màu từ thuộc tính favcol (màu vàng), màu yêu thích vẫn được hiển thị dưới dạng màu vàng:
+
+```
+class Header extends React.Component {
+  constructor(props) { // 2
+    super(props);
+    this.state = {favoritecolor: "green"};
+  }
+  static getDerivedStateFromProps(props, state) { // 3, 6
+    return {favoritecolor: props.favcol };
+  }
+  changeColor = () => { // 5
+    this.setState({favoritecolor: "blue"});
+  }
+  render() { // 4, 7
+    return (
+      <div>
+      <h1>My Favorite Color is {this.state.favoritecolor}</h1>
+      <button type="button" onClick={this.changeColor}>Change color</button>
+      </div>
+    );
+  }
+}
+
+ReactDOM.render(<Header favcol="yellow"/>, document.getElementById('root')); // 1
+```
+
+NOTE: getDerivedStateFromProps() luôn được gọi trước khi thực hiện render()
+
+- render()
+
+Phương thức render () là bắt buộc ở giai đoạn (Mounting, Update) và là phương thức thực sự xuất HTML ra DOM.
+
+```
+class Header extends React.Component {
+  render() {
+    return (
+      <h1>This is the content of the Header component</h1>
+    );
+  }
+}
+
+ReactDOM.render(<Header />, document.getElementById('root'));
+```
+
+- componentDidMount()
+  Phương thức componentDidMount () được gọi sau khi component đó đã được gắn vào trong DOM (đã hiển thị).
+
+(được thực thi sau lần hiển thị đầu tiên chỉ ở phía client. Đây là nơi các thực hiện AJAX và cập nhật DOM hoặc state sẽ xảy ra. Phương pháp này cũng được sử dụng để tích hợp với các khung JavaScript khác và bất kỳ hàm nào có quá trình thực thi như setTimeout hoặc setInterval.)
+
+```
+class Header extends React.Component {
+  constructor(props) { // 2
+    super(props);
+    this.state = {favoritecolor: "red"};
+  }
+  componentDidMount() { // 4
+    setTimeout(() => {
+      this.setState({favoritecolor: "yellow"})
+    }, 1000)
+  }
+  render() { // 3
+    return (
+      <h1>My Favorite Color is {this.state.favoritecolor}</h1>
+    );
+  }
+}
+
+ReactDOM.render(<Header />, document.getElementById('root')); // 1
+```
+
+- shouldComponentUpdate
+  Trong phương thức shouldComponentUpdate (), trả về một giá trị Boolean chỉ định liệu React có nên tiếp tục update component hay không.
+
+Giá trị mặc định là true.
+
+Ví dụ dưới đây cho thấy điều gì sẽ xảy ra khi phương thức shouldComponentUpdate () trả về false:
+
+```
+class Header extends React.Component {
+  constructor(props) { // 2
+    super(props);
+    this.state = {favoritecolor: "red"};
+  }
+  shouldComponentUpdate() { // 5
+    return false;
+  }
+  changeColor = () => { // 4
+    this.setState({favoritecolor: "blue"});
+  }
+  render() { // 3
+    return (
+      <div>
+      <h1>My Favorite Color is {this.state.favoritecolor}</h1>
+      <button type="button" onClick={this.changeColor}>Change color</button>
+      </div>
+    );
+  }
+}
+
+ReactDOM.render(<Header />, document.getElementById('root')); // 1
+```
+
+Để dễ hình dùng các bạn có thể nhìn lại hình ở phía trên. KhishouldComponentUpdate() trả về false thì sẽ không thực hiện gì tiếp theo.
+
+Sau khi component đã được gắn vào DOM (đã thực hiện hàm render 1 lần với màu đỏ ở giai đoạn Mounting), ta thực hiện action click button -> hàm changeColor() được thực hiện (thực hiện update lại state) như bình thường khi state được update thì hàm render() sẽ được gọi để update với màu xanh nhưng, shouldComponentUpdate() lại trả về false tức là `dù cho bất cứ điều gì cũng không được thực hiện render (thay đổi)`
+
+- getSnapshotBeforeUpdate
+  Trong phương thức getSnapshotBeforeUpdate (), bạn có quyền truy cập vào các props và state trước khi cập nhật, có nghĩa là ngay cả sau khi cập nhật, bạn vẫn có thể kiểm tra các giá trị trước khi cập nhật.
+
+Nếu có phương thức getSnapshotBeforeUpdate (), bạn cũng nên bao gồm phương thức componentDidUpdate (), nếu không bạn sẽ gặp lỗi.
+
+```
+class Header extends React.Component {
+  constructor(props) { // 2. RED
+    super(props);
+    this.state = {favoritecolor: "red"};
+  }
+  componentDidMount() { // 4. RED -> YELLOW
+    setTimeout(() => {
+      this.setState({favoritecolor: "yellow"})
+    }, 1000)
+  }
+  getSnapshotBeforeUpdate(prevProps, prevState) { // 5.
+    document.getElementById("div1").innerHTML =
+    "Before the update, the favorite was " + prevState.favoritecolor;
+  }
+  componentDidUpdate() { // 6
+    document.getElementById("div2").innerHTML =
+    "The updated favorite is " + this.state.favoritecolor;
+  }
+  render() { // 3. RED, 7. YELLOW; div1: RED
+    return (
+      <div>
+        <h1>My Favorite Color is {this.state.favoritecolor}</h1>
+        <div id="div1"></div>
+        <div id="div2"></div>
+      </div>
+    );
+  }
+}
+
+ReactDOM.render(<Header />, document.getElementById('root')); // 1
+
+```
+
+- Khi component được gắn kết (Mounting), nó được hiển thị với màu yêu thích "RED".
+
+Khi component đã gắn vào DOM, một bộ đếm thời gian sẽ thay đổi State, sau một giây, màu yêu thích sẽ trở thành "YELLOW".
+
+Hành động này kích hoạt giai đoạn UPDATE và vì thành phần này có phương thức getSnapshotBeforeUpdate (), phương thức này được thực thi và ghi dữ liệu cũ (RED) vào phần tử DIV1 trống.
+
+Sau đó, phương thức componentDidUpdate () tiếp tục được thực thi và viết một dữ liệu hiện tại (YELLOW) trong phần tử DIV2 trống.
+
+- componentDidUpdate
+
+Phương thức componentDidUpdate() được gọi sau khi thành phần được cập nhật trong DOM.
+
+```
+class Header extends React.Component {
+  constructor(props) { // 1
+    super(props);
+    this.state = {favoritecolor: "red"};
+  }
+  componentDidMount() { // 3
+    setTimeout(() => {
+      this.setState({favoritecolor: "yellow"})
+    }, 1000)
+  }
+  componentDidUpdate() { // 4
+    document.getElementById("mydiv").innerHTML =
+    "The updated favorite is " + this.state.favoritecolor;
+  }
+  render() { // 2, 5
+    return (
+      <div>
+      <h1>My Favorite Color is {this.state.favoritecolor}</h1>
+      <div id="mydiv"></div>
+      </div>
+    );
+  }
+}
+
+ReactDOM.render(<Header />, document.getElementById('root'));
+```
+
+- componentWillUnmount
+
+Phương thức componentWillUnmount được gọi khi thành phần sắp bị xóa khỏi DOM.
+
+```
+class Container extends React.Component {
+  constructor(props) { // 1
+    super(props);
+    this.state = {show: true};
+  }
+  delHeader = () => { // 4
+    this.setState({show: false});
+  }
+  render() { // 2, 6
+    let myheader;
+    if (this.state.show) {
+      myheader = <Child />;
+    };
+    return (
+      <div>
+      {myheader}
+      <button type="button" onClick={this.delHeader}>Delete Header</button>
+      </div>
+    );
+  }
+}
+
+class Child extends React.Component {
+  componentWillUnmount() { // 5
+    alert("The component named Header is about to be unmounted.");
+  }
+  render() { // 3
+    return (
+      <h1>Hello World!</h1>
+    );
+  }
+}
+
+ReactDOM.render(<Container />, document.getElementById('root'));
+```
+### Handling Events
+Với React thì việc xử lý các Event cũng giống như là DOM element, chỉ có một vài điểm khác biệt như sau:
+
+- React element thì sử dụng camelCase conventio, ko giống như là DOM element là sử dụng lowercase
+- Với JSX thì bạn có thể xử lý các sự kiện bằng cách sử dụng event handle chứ ko giống DOM truyền vào 1 chuỗi string
+
+1. ``SyntheticEvent``
+
+Trong React, ``SyntheticEvent`` là một đối tượng được tạo ra để đóng gói sự kiện (event) được tạo ra bởi trình duyệt. Đối tượng ``SyntheticEvent`` là một bản sao của đối tượng sự kiện (event) mà có thể được sử dụng để xử lý các sự kiện (event) trong React.
+
+Việc sử dụng ``SyntheticEvent`` trong React có nhiều lợi ích, bao gồm:
+
+- Tránh việc sử dụng event pooling, giúp tối ưu hóa hiệu suất ứng dụng.
+- Các `SyntheticEvent` sẽ được hủy bỏ (được giải phóng bộ nhớ) sau khi xử lý sự kiện, giúp giảm thiểu lãng phí bộ nhớ.
+Khi sử dụng `SyntheticEvent`, chúng ta có thể truy cập tất cả các thuộc tính (property) và phương thức (method) của đối tượng sự kiện (event) gốc thông qua thuộc tính 
+- Các thuộc tính của đối tượng `SyntheticEvent` trong React có các tác dụng như sau:
+
+`bubbles (boolean)`: chỉ ra sự kiện có nổi bọt hay không. Nếu có nổi bọt thì sự kiện sẽ được lan truyền từ phần tử con lên đến phần tử cha.
+
+`cancelable (boolean)`: chỉ ra sự kiện có thể bị hủy bỏ hay không.
+
+`currentTarget (DOMEventTarget)`: đối tượng mà trình xử lý sự kiện được gắn vào.
+
+`defaultPrevented (boolean)`: chỉ ra liệu phương thức preventDefault() đã được gọi hay chưa.
+
+`eventPhase (number)`: chỉ ra giai đoạn của vòng đời sự kiện. Có thể có 3 giá trị: CAPTURING_PHASE (1), AT_TARGET (2), hoặc BUBBLING_PHASE (3).
+
+`isTrusted (boolean)`: chỉ ra liệu sự kiện đã được tạo ra bởi người dùng hay bởi chương trình.
+
+`nativeEvent (DOMEvent)`: đối tượng sự kiện (event) gốc được tạo ra bởi trình duyệt, cho phép chúng ta truy cập các thuộc tính và phương thức của sự kiện (event) gốc.
+
+`preventDefault() (function)`: phương thức để ngăn chặn hành vi mặc định của sự kiện (event), ví dụ: chặn việc chuyển trang khi người dùng click vào một liên kết (<a> tag).
+
+`isDefaultPrevented() (function)`: phương thức để kiểm tra xem phương thức preventDefault() đã được gọi hay chưa.
+
+`stopPropagation() (function)`: phương thức để ngăn chặn sự kiện (event) lan truyền đến các phần tử khác trên DOM.
+
+`isPropagationStopped() (function)`: phương thức để kiểm tra xem phương thức stopPropagation() đã được gọi hay chưa.
+
+`target (DOMEventTarget)`: đối tượng DOM mà sự kiện đã xảy ra trên.
+
+`timeStamp (number)`: thời gian (timestamp) mà sự kiện được tạo ra.
+
+`type (string)`: loại sự kiện (event) được kích hoạt, ví dụ: "click", "keydown", "submit",...
+
+2. Method Refer
+Với React element thì các bạn không cần phải sử dụng addEventListener để add event vào các element mới được tạo. Ví dụ như sau
+```
+class Toggle extends React.Component {
+  constructor(props) {
+    super(props);
+    this.state = {isToggleOn: true};
+
+    // This binding is necessary to make `this` work in the callback
+    this.handleClick = this.handleClick.bind(this);
+  }
+
+  handleClick() {
+    this.setState(state => ({
+      isToggleOn: !state.isToggleOn
+    }));
+  }
+
+  render() {
+    return (
+      <button onClick={this.handleClick}>
+        {this.state.isToggleOn ? 'ON' : 'OFF'}
+      </button>
+    );
+  }
+}
+
+ReactDOM.render(
+  <Toggle />,
+  document.getElementById('root')
+);
+
+```
+
+Với ví dụ trên thì khi state thay đổi thì Button sẽ được render lại, và nếu với DOM element thì sau khi render button mới thì các bạn sẽ phải sử dụng addEventListener để add sự kiện onClick vào cho button mới. Nhưng với React element thì khi button được render lại thì mặc nhiên element đã được add sự kiên onClick.
+
+Lưu ý khi các bạn sử dụng từ khóa this trong JSX, do các method của javascript không được bind một cách mặc định nên nếu bạn quên làm việc đó thì khi sử dụng this.method sẽ trả về undefine.
+
+### Conditional Rendering
+Các thành phần của bạn thường sẽ cần hiển thị những thứ khác nhau tùy thuộc vào các điều kiện khác nhau. Trong React, bạn có thể kết xuất JSX một cách có điều kiện bằng cách sử dụng cú pháp JavaScript như câu lệnh if, && và ? : toán tử.

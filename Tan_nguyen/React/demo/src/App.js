@@ -1,17 +1,20 @@
-export default function TodoList() {
+function Item({ name, isPacked }) {
+  // if (isPacked) {
+  //   return <li className="item">{name} ✔</li>;
+  // }
+  // return <li className="item">{name}</li>;
+  return <li className="item">{isPacked ? name + " ✔" : name}</li>; //“if isPacked is true, then (?) render name + ' ✔', otherwise (:) render name”.
+}
+
+export default function PackingList() {
   return (
-    <>
-      <h1>Hedy Lamarr's Todos</h1>
-      <img
-        src="https://i.imgur.com/yXOvdOSs.jpg"
-        alt="Hedy Lamarr"
-        className="photo"
-      />
+    <section>
+      <h1>Sally Ride's Packing List</h1>
       <ul>
-        <li>Invent new traffic lights</li>
-        <li>Rehearse a movie scene</li>
-        <li>Improve the spectrum technology</li>
+        <Item isPacked={true} name="Space suit" />
+        <Item isPacked={true} name="Helmet with a golden leaf" />
+        <Item isPacked={false} name="Photo of Tam" />
       </ul>
-    </>
+    </section>
   );
 }
