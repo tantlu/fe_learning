@@ -711,21 +711,23 @@ class Child extends React.Component {
 
 ReactDOM.render(<Container />, document.getElementById('root'));
 ```
+
 ### Handling Events
+
 Với React thì việc xử lý các Event cũng giống như là DOM element, chỉ có một vài điểm khác biệt như sau:
 
 - React element thì sử dụng camelCase conventio, ko giống như là DOM element là sử dụng lowercase
 - Với JSX thì bạn có thể xử lý các sự kiện bằng cách sử dụng event handle chứ ko giống DOM truyền vào 1 chuỗi string
 
-1. ``SyntheticEvent``
+1. `SyntheticEvent`
 
-Trong React, ``SyntheticEvent`` là một đối tượng được tạo ra để đóng gói sự kiện (event) được tạo ra bởi trình duyệt. Đối tượng ``SyntheticEvent`` là một bản sao của đối tượng sự kiện (event) mà có thể được sử dụng để xử lý các sự kiện (event) trong React.
+Trong React, `SyntheticEvent` là một đối tượng được tạo ra để đóng gói sự kiện (event) được tạo ra bởi trình duyệt. Đối tượng `SyntheticEvent` là một bản sao của đối tượng sự kiện (event) mà có thể được sử dụng để xử lý các sự kiện (event) trong React.
 
-Việc sử dụng ``SyntheticEvent`` trong React có nhiều lợi ích, bao gồm:
+Việc sử dụng `SyntheticEvent` trong React có nhiều lợi ích, bao gồm:
 
 - Tránh việc sử dụng event pooling, giúp tối ưu hóa hiệu suất ứng dụng.
 - Các `SyntheticEvent` sẽ được hủy bỏ (được giải phóng bộ nhớ) sau khi xử lý sự kiện, giúp giảm thiểu lãng phí bộ nhớ.
-Khi sử dụng `SyntheticEvent`, chúng ta có thể truy cập tất cả các thuộc tính (property) và phương thức (method) của đối tượng sự kiện (event) gốc thông qua thuộc tính 
+  Khi sử dụng `SyntheticEvent`, chúng ta có thể truy cập tất cả các thuộc tính (property) và phương thức (method) của đối tượng sự kiện (event) gốc thông qua thuộc tính
 - Các thuộc tính của đối tượng `SyntheticEvent` trong React có các tác dụng như sau:
 
 `bubbles (boolean)`: chỉ ra sự kiện có nổi bọt hay không. Nếu có nổi bọt thì sự kiện sẽ được lan truyền từ phần tử con lên đến phần tử cha.
@@ -757,7 +759,8 @@ Khi sử dụng `SyntheticEvent`, chúng ta có thể truy cập tất cả các
 `type (string)`: loại sự kiện (event) được kích hoạt, ví dụ: "click", "keydown", "submit",...
 
 2. Method Refer
-Với React element thì các bạn không cần phải sử dụng addEventListener để add event vào các element mới được tạo. Ví dụ như sau
+   Với React element thì các bạn không cần phải sử dụng addEventListener để add event vào các element mới được tạo. Ví dụ như sau
+
 ```
 class Toggle extends React.Component {
   constructor(props) {
@@ -795,4 +798,255 @@ Với ví dụ trên thì khi state thay đổi thì Button sẽ được render
 Lưu ý khi các bạn sử dụng từ khóa this trong JSX, do các method của javascript không được bind một cách mặc định nên nếu bạn quên làm việc đó thì khi sử dụng this.method sẽ trả về undefine.
 
 ### Conditional Rendering
+
 Các thành phần của bạn thường sẽ cần hiển thị những thứ khác nhau tùy thuộc vào các điều kiện khác nhau. Trong React, bạn có thể kết xuất JSX một cách có điều kiện bằng cách sử dụng cú pháp JavaScript như câu lệnh if, && và ? : toán tử.
+
+1. Trả về JSX có điều kiện
+   Let’s say you have a PackingList component rendering several Items, which can be marked as packed or not:
+
+```
+function Item({ name, isPacked }) {
+  return <li className="item">{name}</li>;
+}
+
+export default function PackingList() {
+  return (
+    <section>
+      <h1>Sally Ride's Packing List</h1>
+      <ul>
+        <Item
+          isPacked={true}
+          name="Space suit"
+        />
+        <Item
+          isPacked={true}
+          name="Helmet with a golden leaf"
+        />
+        <Item
+          isPacked={false}
+          name="Photo of Tam"
+        />
+      </ul>
+    </section>
+  );
+}
+```
+
+Bạn muốn thêm dấu kiểm (✔) vào các mặt hàng được đóng gói nếu isPacked={true}.
+
+```
+function Item({ name, isPacked }) {
+  if (isPacked) {
+    return <li className="item">{name} ✔</li>;
+  }
+  return <li className="item">{name}</li>;
+}
+
+export default function PackingList() {
+  return (
+    <section>
+      <h1>Sally Ride's Packing List</h1>
+      <ul>
+        <Item
+          isPacked={true}
+          name="Space suit"
+        />
+        <Item
+          isPacked={true}
+          name="Helmet with a golden leaf"
+        />
+        <Item
+          isPacked={false}
+          name="Photo of Tam"
+        />
+      </ul>
+    </section>
+  );
+}
+```
+
+2. Conditionally returning nothing with null
+
+Trong một số trường hợp, bạn sẽ không muốn kết xuất bất cứ thứ gì. Ví dụ: giả sử bạn hoàn toàn không muốn hiển thị các mặt hàng được đóng gói. Một thành phần phải trả lại một cái gì đó. Trong trường hợp này, bạn có thể trả về null:
+
+Nếu isPacked là true, thành phần này sẽ không trả về gì cả, null. Nếu không, nó sẽ trả về JSX để kết xuất.
+
+```
+function Item({ name, isPacked }) {
+  if (isPacked) {
+    return null;
+  }
+  return <li className="item">{name}</li>;
+}
+
+export default function PackingList() {
+  return (
+    <section>
+      <h1>Sally Ride's Packing List</h1>
+      <ul>
+        <Item
+          isPacked={true}
+          name="Space suit"
+        />
+        <Item
+          isPacked={true}
+          name="Helmet with a golden leaf"
+        />
+        <Item
+          isPacked={false}
+          name="Photo of Tam"
+        />
+      </ul>
+    </section>
+  );
+}
+```
+
+3. Conditional (ternary) operator (? :)
+
+JavaScript có một cú pháp nhỏ gọn để viết một biểu thức điều kiện — toán tử điều kiện hay “toán tử bậc ba”.
+
+Instead of this:
+
+```
+if (isPacked) {
+  return <li className="item">{name} ✔</li>;
+}
+return <li className="item">{name}</li>;
+```
+
+You can write this:
+
+```
+return (
+  <li className="item">
+    {isPacked ? name + ' ✔' : name}
+  </li>
+);
+```
+
+Sửa lại đoạn code ban đầu 1 chút
+
+```
+function Item({ name, isPacked }) {
+  return (
+    <li className="item">
+      {isPacked ? (
+          name + ' ✔'
+      ) : (
+        name
+      )}
+    </li>
+  );
+}
+
+export default function PackingList() {
+  return (
+    <section>
+      <h1>Sally Ride's Packing List</h1>
+      <ul>
+        <Item
+          isPacked={true}
+          name="Space suit"
+        />
+        <Item
+          isPacked={true}
+          name="Helmet with a golden leaf"
+        />
+        <Item
+          isPacked={false}
+          name="Photo of Tam"
+        />
+      </ul>
+    </section>
+  );
+}
+```
+
+4. Logical AND operator (&&)
+
+Một phím tắt phổ biến khác mà bạn sẽ gặp là toán tử logic AND (&&) của JavaScript. Bên trong các thành phần React, nó thường xuất hiện khi bạn muốn hiển thị một số JSX khi điều kiện là đúng hoặc không hiển thị gì khác. Với &&, bạn chỉ có thể hiển thị dấu kiểm một cách có điều kiện nếu isPacked là đúng:
+From
+
+```
+function Item({ name, isPacked }) {
+  if (isPacked) {
+    return <li className="item">{name} ✔</li>;
+  }
+  return <li className="item">{name}</li>;
+}
+```
+
+To
+
+```
+function Item({ name, isPacked }) {
+  return (
+  <li className="item">
+    {name} {isPacked && '✔'}
+  </li>
+);
+}
+```
+6. Conditionally assigning JSX to a variable
+
+Khi các phím tắt trở nên gây trở ngại trong việc viết mã plain code, bạn có thể thử sử dụng lệnh if và một biến để gán JSX theo điều kiện. Bạn có thể gán lại giá trị cho các biến được định nghĩa bằng let, bắt đầu bằng việc cung cấp nội dung mặc định mà bạn muốn hiển thị, tên:
+
+`let itemContent = name;`
+
+Sử dụng lệnh if để gán lại biểu thức JSX vào biến itemContent nếu isPacked là true:
+```
+if (isPacked) {
+  itemContent = name + " ✔";
+}
+```
+Dấu ngoặc nhọn mở ra "Window into JavaScript". Nhúng biến với dấu ngoặc nhọn vào cây JSX được trả về, lồng biểu thức tính toán trước đó vào trong JSX:
+```
+<li className="item">
+  {itemContent}
+</li>
+```
+This style is the most verbose, but it’s also the most flexible. Here it is in action:
+```
+function Item({ name, isPacked }) {
+  let itemContent = name;
+  if (isPacked) {
+    itemContent = name + " ✔";
+  }
+  return (
+    <li className="item">
+      {itemContent}
+    </li>
+  );
+}
+
+export default function PackingList() {
+  return (
+    <section>
+      <h1>Sally Ride's Packing List</h1>
+      <ul>
+        <Item 
+          isPacked={true} 
+          name="Space suit" 
+        />
+        <Item 
+          isPacked={true} 
+          name="Helmet with a golden leaf" 
+        />
+        <Item 
+          isPacked={false} 
+          name="Photo of Tam" 
+        />
+      </ul>
+    </section>
+  );
+}
+
+```
+7. Recap
+- Trong React, bạn có thể điều khiển các logic phân nhánh bằng JavaScript. 
+- Bạn có thể sử dụng lệnh if để điều kiển việc trả về một biểu thức JSX dựa trên điều kiện. 
+- Bạn cũng có thể lưu trữ một biểu thức JSX một cách có điều kiện vào một biến và sau đó bao gồm nó trong JSX khác bằng cách sử dụng dấu ngoặc nhọn. 
+- Trong JSX, biểu thức `{cond ? <A /> : <B />}` /có nghĩa là `"nếu cond, thì hiển thị <A />, nếu không, hiển thị <B />"`. 
+- Trong JSX, biểu thức `{cond && <A />}` có nghĩa là `"nếu cond, thì hiển thị <A />, nếu không, không hiển thị gì cả"`. 
+- Các phím tắt này thường được sử dụng, nhưng bạn không bắt buộc phải sử dụng chúng nếu bạn thích sử dụng lệnh if thông thường.
