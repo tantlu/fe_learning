@@ -4,10 +4,26 @@
 
 Trước tiên chúng ta sẽ định nghĩa React là gì.
 
-- React là một thư viện được phát triển dựa trên Javascript, nó tới với trái đất để xây dựng giao diện người dùng.
+- React là một thư viện UI phát triển tại Facebook để hỗ trợ việc xây dựng những thành phần (components) UI có tính tương tác cao, có trạng thái và có thể sử dụng lại được.
 - React sử dụng `function render()` để biến các giá trị đầu vào và trả về những gì sẽ hiển thị.
 - React sử dụng cú pháp JSX để biểu diễn code, không bắt buộc sử dụng nhưng JSX được nhà phát triển React khuyến khích sử dụng
 - React dựa vào `props` và `state` để gọi `function render()`, giúp cho những gì hiển thị luôn là mới nhất.
+
+## Virtual DOM
+
+Virtual DOM (DOM ảo) là một kỹ thuật được sử dụng trong React và một số các framework web khác nhằm cải thiện hiệu suất của ứng dụng web. Virtual DOM là một bản sao của DOM (Document Object Model) thật sự, được lưu trữ trong bộ nhớ của trình duyệt và cập nhật dựa trên thay đổi của ứng dụng, trước khi thực sự áp dụng các thay đổi lên DOM thật sự.
+
+Khi có thay đổi trong ứng dụng, React sẽ cập nhật Virtual DOM thay vì cập nhật trực tiếp trên DOM thật sự. Sau đó, React sẽ so sánh Virtual DOM mới với Virtual DOM cũ và xác định được những phần cần cập nhật trên DOM thật sự. Điều này giúp giảm tải cho trình duyệt và cải thiện hiệu suất của ứng dụng web.
+
+Một số ưu điểm của Virtual DOM:
+
+Tăng tốc độ hiển thị ứng dụng: Thay vì cập nhật trực tiếp trên DOM thật sự, React sử dụng Virtual DOM để cập nhật chỉ những phần cần thiết trên DOM thật sự, giúp tăng tốc độ hiển thị ứng dụng.
+
+Giảm tải cho trình duyệt: Khi sử dụng Virtual DOM, React chỉ cập nhật những phần cần thiết trên DOM thật sự, giúp giảm tải cho trình duyệt.
+
+Dễ dàng quản lý ứng dụng: Sử dụng Virtual DOM giúp tách biệt giữa dữ liệu và giao diện, giúp quản lý ứng dụng dễ dàng hơn.
+
+Dễ dàng thao tác và tái sử dụng code: Virtual DOM giúp thao tác và tái sử dụng code dễ dàng hơn.
 
 ## JSX
 
@@ -359,6 +375,26 @@ Nói cách khác, props là "Read-Only", có nghĩa là chúng ta không nên th
 
 Điều này là để đảm bảo tính nhất quán và dễ dàng theo dõi trong quá trình phát triển ứng dụng, giúp giảm thiểu các lỗi khó kiểm tra do thay đổi giá trị của props trong quá trình thực thi.
 
+## Có những cách nào để trao đổi dữ liệu giữa các component
+
+Trong React, có một số cách để trao đổi dữ liệu giữa các component như sau:
+
+- Props: Truyền dữ liệu từ component cha sang component con thông qua Props. Component con có thể sử dụng dữ liệu này như một thuộc tính của nó. Khi dữ liệu được thay đổi ở component cha, component con sẽ nhận được sự thay đổi này thông qua Props.
+
+- Callbacks: Truyền hàm từ component cha sang component con thông qua Props. Component con có thể gọi hàm này để gửi dữ liệu lên component cha. Khi dữ liệu được gửi lên component cha, component cha có thể truyền dữ liệu này xuống component con thông qua Props.
+
+Bước 1: Định nghĩa 1 callback function ở Parent component, function này sẽ có tham số để chứa dữ liệu được truyền đi từ Child component.
+
+Bước 2: Truyền callback function đã được định nghĩa ở trên vào Child component qua props (tương tự truyền dữ liệu từ Parent đến Child).
+
+Bước 3: Ở Child component truyền dữ liệu ngược lại Parent bằng cách gọi props.callback(dataToParent)
+
+- Context API: Sử dụng Context để truyền dữ liệu từ component cha đến các component con trong cây component, mà không cần truyền Props qua các component trung gian.
+
+Redux hoặc MobX: Sử dụng các thư viện quản lý state như Redux hoặc MobX để lưu trữ dữ liệu trạng thái của ứng dụng, và các component có thể truy cập dữ liệu này thông qua các hàm và API được cung cấp bởi các thư viện này.
+
+Tùy thuộc vào tính chất của ứng dụng, các cách trên có thể được sử dụng độc lập hoặc kết hợp với nhau để đáp ứng nhu cầu trao đổi dữ liệu giữa các component.
+
 ### State and Lifecycle
 
 **React Lifecycle**
@@ -423,6 +459,15 @@ Giai đoạn tiếp theo trong vòng đời là khi một component bị xóa kh
 React chỉ có một phương thức tích hợp được gọi khi một component được ngắt kết nối:
 
 componentWillUnmount()
+
+- **Lifecycle methods**
+  - componentWillMount sẽ được thực thi trước khi component được render, trên cả phía server và client.
+  - componentDidMount sẽ được thực thi khi componet được render chỉ ở phía client. Đây là nơi gọi đến các AJAX request và DOM hoặc là update state. Nó cũng được sử dụng khi gọi đến các Framework Javascript khác và các function delay như là setTimeout hoặc setInterval.
+  - componentWillReceiveProps được thực thi ngay khi giá trị của props được update và trước khi các cái render khác được gọi đến. Chúng ta kích hoạt nó từ setNewNumber khi state được update.
+  - shouldComponentUpdate sẽ trả về true hoặc false. Nó sẽ xác định component sẽ được update hoặc không. Giá trị của nó được gán giá trị mặc định là true. Nếu bạn chắc chắn là component không cần phải render lại khi state hoặc props được update thì bạn có thể return về false.
+  - componentWillUpdate sẽ được gọi trước khi render.
+  - componentDidUpdate sẽ được gọi sau khi render.
+  - componentWillUnmount sẽ được gọi sau khi unmount component từ DOM.
 
 3. Chi tiết các hàm
 
@@ -712,6 +757,16 @@ class Child extends React.Component {
 ReactDOM.render(<Container />, document.getElementById('root'));
 ```
 
+### Global state
+
+Global state là trạng thái toàn cục của ứng dụng, nghĩa là nó được lưu trữ tại một nơi duy nhất và có thể được truy cập và thay đổi từ bất kỳ component nào trong ứng dụng.
+
+Một ví dụ về global state là thông tin đăng nhập của người dùng. Khi người dùng đăng nhập vào ứng dụng, thông tin này sẽ được lưu trữ tại một nơi duy nhất và có thể được truy cập từ bất kỳ component nào trong ứng dụng. Khi người dùng chuyển đến một trang khác trong ứng dụng, thông tin đăng nhập vẫn còn tồn tại và không cần phải đăng nhập lại.
+
+Để quản lý global state trong React, ta có thể sử dụng các thư viện quản lý state như Redux hoặc MobX. Điều này giúp giảm sự phức tạp của việc quản lý state và giúp cho các component trong ứng dụng có thể dễ dàng truy cập vào dữ liệu chung của ứng dụng.
+
+Ví dụ, nếu ta muốn lưu trữ thông tin đăng nhập trong Redux, ta có thể tạo một store để lưu trữ thông tin này. Component trong ứng dụng có thể sử dụng các hàm và API của Redux để truy cập và thay đổi giá trị của global state. Khi global state thay đổi, các component cũng sẽ được cập nhật tự động để hiển thị các thay đổi này.
+
 ### Handling Events
 
 Với React thì việc xử lý các Event cũng giống như là DOM element, chỉ có một vài điểm khác biệt như sau:
@@ -988,6 +1043,7 @@ function Item({ name, isPacked }) {
 );
 }
 ```
+
 6. Conditionally assigning JSX to a variable
 
 Khi các phím tắt trở nên gây trở ngại trong việc viết mã plain code, bạn có thể thử sử dụng lệnh if và một biến để gán JSX theo điều kiện. Bạn có thể gán lại giá trị cho các biến được định nghĩa bằng let, bắt đầu bằng việc cung cấp nội dung mặc định mà bạn muốn hiển thị, tên:
@@ -995,18 +1051,23 @@ Khi các phím tắt trở nên gây trở ngại trong việc viết mã plain 
 `let itemContent = name;`
 
 Sử dụng lệnh if để gán lại biểu thức JSX vào biến itemContent nếu isPacked là true:
+
 ```
 if (isPacked) {
   itemContent = name + " ✔";
 }
 ```
+
 Dấu ngoặc nhọn mở ra "Window into JavaScript". Nhúng biến với dấu ngoặc nhọn vào cây JSX được trả về, lồng biểu thức tính toán trước đó vào trong JSX:
+
 ```
 <li className="item">
   {itemContent}
 </li>
 ```
+
 This style is the most verbose, but it’s also the most flexible. Here it is in action:
+
 ```
 function Item({ name, isPacked }) {
   let itemContent = name;
@@ -1025,17 +1086,17 @@ export default function PackingList() {
     <section>
       <h1>Sally Ride's Packing List</h1>
       <ul>
-        <Item 
-          isPacked={true} 
-          name="Space suit" 
+        <Item
+          isPacked={true}
+          name="Space suit"
         />
-        <Item 
-          isPacked={true} 
-          name="Helmet with a golden leaf" 
+        <Item
+          isPacked={true}
+          name="Helmet with a golden leaf"
         />
-        <Item 
-          isPacked={false} 
-          name="Photo of Tam" 
+        <Item
+          isPacked={false}
+          name="Photo of Tam"
         />
       </ul>
     </section>
@@ -1043,10 +1104,242 @@ export default function PackingList() {
 }
 
 ```
+
 7. Recap
-- Trong React, bạn có thể điều khiển các logic phân nhánh bằng JavaScript. 
-- Bạn có thể sử dụng lệnh if để điều kiển việc trả về một biểu thức JSX dựa trên điều kiện. 
-- Bạn cũng có thể lưu trữ một biểu thức JSX một cách có điều kiện vào một biến và sau đó bao gồm nó trong JSX khác bằng cách sử dụng dấu ngoặc nhọn. 
-- Trong JSX, biểu thức `{cond ? <A /> : <B />}` /có nghĩa là `"nếu cond, thì hiển thị <A />, nếu không, hiển thị <B />"`. 
-- Trong JSX, biểu thức `{cond && <A />}` có nghĩa là `"nếu cond, thì hiển thị <A />, nếu không, không hiển thị gì cả"`. 
+
+- Trong React, bạn có thể điều khiển các logic phân nhánh bằng JavaScript.
+- Bạn có thể sử dụng lệnh if để điều kiển việc trả về một biểu thức JSX dựa trên điều kiện.
+- Bạn cũng có thể lưu trữ một biểu thức JSX một cách có điều kiện vào một biến và sau đó bao gồm nó trong JSX khác bằng cách sử dụng dấu ngoặc nhọn.
+- Trong JSX, biểu thức `{cond ? <A /> : <B />}` /có nghĩa là `"nếu cond, thì hiển thị <A />, nếu không, hiển thị <B />"`.
+- Trong JSX, biểu thức `{cond && <A />}` có nghĩa là `"nếu cond, thì hiển thị <A />, nếu không, không hiển thị gì cả"`.
 - Các phím tắt này thường được sử dụng, nhưng bạn không bắt buộc phải sử dụng chúng nếu bạn thích sử dụng lệnh if thông thường.
+
+## HOC là gì, Hook là gì ?
+
+HOC là viết tắt của "Higher Order Component" và Hook là một tính năng trong React. Đây là hai khái niệm khác nhau trong lập trình React.
+
+- Higher Order Component (HOC):
+  HOC là một hàm nhận đầu vào là một component và trả về một component mới có khả năng mở rộng tính năng của component đầu vào. HOC thường được sử dụng để chia sẻ logic giữa các component, tránh việc lặp lại code. HOC có thể sử dụng để thực hiện việc xử lý các tác vụ như xác thực người dùng, xử lý dữ liệu, chia sẻ các hàm tiện ích, vv.
+  Ví dụ:
+
+```
+function withLogging(WrappedComponent) {
+  return class extends React.Component {
+    componentDidMount() {
+      console.log("Component mounted");
+    }
+
+    render() {
+      return <WrappedComponent {...this.props} />;
+    }
+  };
+}
+
+const MyComponent = () => <div>My Component</div>;
+const MyComponentWithLogging = withLogging(MyComponent);
+```
+
+- Hook:
+  Hook là một tính năng được giới thiệu từ phiên bản React 16.8, cho phép bạn sử dụng state và các tính năng của React trong các function component. Hook giúp bạn tái sử dụng logic, tránh việc dư thừa code, cũng như dễ dàng hơn khi viết unit test.
+  Các Hook phổ biến trong React bao gồm useState, useEffect, useContext, useRef, useCallback, useMemo, và useReducer.
+
+Ví dụ:
+
+```
+import { useState } from 'react';
+
+const Counter = () => {
+  const [count, setCount] = useState(0);
+
+  const incrementCount = () => {
+    setCount(count + 1);
+  };
+
+  return (
+    <div>
+      <h2>Count: {count}</h2>
+      <button onClick={incrementCount}>Increment</button>
+    </div>
+  );
+};
+```
+
+Trong ví dụ trên, chúng ta sử dụng Hook useState để giữ trạng thái đếm số lần người dùng nhấn vào nút "Increment". Khi người dùng nhấn vào nút, hàm incrementCount sẽ được gọi để tăng giá trị của state count. Sau đó, chúng ta hiển thị giá trị count lên màn hình.
+
+## 1. forwardRef là gì?
+
+forwardRef là một method cho phép các components cha truyền các refs (tham chiếu) xuống các component con của chúng. forwardRef đưa cho component con một tham chiếu đến một phần tử DOM được tạo bởi cha của nó và điều này cho phép chúng có thể đọc và sửa đổi phần tử đó ở bất cứ đâu mà nó đang được sử dụng.
+
+2. Cú pháp cơ bản
+   React.forwardRef((props, ref) => {})
+
+forwardRef là một hàm với các tham số là props và ref. Kết quả trả về là một JSX element.
+
+3. Hoạt động
+   Trong React, các components cha thường sử dụng các props để truyền dữ liệu xuống cho con của chúng. Để thay đổi behavior của một component con, chúng ta phải render lại chúng bằng một tập các props mới. Do vậy, cần một cách để thay đổi hành vi của một thằng con mà không cần phải tìm state hoặc re-render lại component đó.
+
+refs có thể giúp chúng ra làm điều này. Với refs, chúng ta có thể truy cập một node DOM được đại diện bởi một component bằng cách sử dụng refs. Do đó, sẽ thực hiện các thay đổi lên thằng con mà không ảnh hưởng đến state hay re-render lại nó.
+
+Khi một components con cần tham chiếu đến node hiện tại của nó, thì components cha phải có cách để con nhận được ref của nó. Kỹ thuật này được gọi là forwarding refs.
+
+## Làm thế nào để render 1 list
+
+---
+
+## Làm thế nào để controll dữ liệu của 1 form, input
+
+---
+
+## Làm thế nào để conditional rendering 1 React Element
+
+---
+
+## Liệt kê các buildin hook trong react, các case sử dụng.
+
+Trong React, có một số hook được tích hợp sẵn (built-in hook) cho phép bạn tương tác với vòng đời (lifecycle) của các thành phần (component) React, quản lý trạng thái (state) và hành vi của ứng dụng. Sau đây là một số built-in hook trong React:
+
+`useState()`: Đây là hook được sử dụng để quản lý trạng thái (state) của một thành phần. Nó trả về một cặp giá trị gồm state hiện tại và một hàm để cập nhật state đó. Đây là hook phổ biến nhất trong React và được sử dụng để lưu trữ dữ liệu nội bộ của một thành phần, ví dụ như biến đếm, biến boolean, v.v.
+
+`useEffect()`: Đây là hook được sử dụng để đồng bộ hoá với vòng đời (lifecycle) của thành phần. Nó cho phép bạn thực hiện các hành động sau khi thành phần được gắn kết lên giao diện, hoặc khi state của thành phần thay đổi, hoặc sau khi thành phần bị hủy bỏ. Đây là hook phổ biến để gọi API, xử lý dữ liệu bất đồng bộ, hoặc làm các thao tác tương tự.
+
+`useContext()`: Đây là hook được sử dụng để truy cập vào giá trị của context trong React. Nó cho phép bạn chia sẻ dữ liệu giữa các thành phần con trong cây component mà không cần truyền props qua nhiều cấp.
+
+`useReducer()`: Đây là hook được sử dụng để quản lý trạng thái của một thành phần bằng cách sử dụng mô hình reducer, tương tự như Redux. Nó giúp quản lý trạng thái phức tạp hơn trong một thành phần và cung cấp cách quản lý state dựa trên hành động.
+
+`useRef()`: Đây là hook được sử dụng để tham chiếu đến một phần tử trong DOM hoặc để lưu trữ giá trị giữa các render của thành phần. Nó giúp giải quyết những vấn đề liên quan đến tham chiếu DOM, hoặc theo dõi giá trị của một biến không gây render lại.
+
+`useMemo()`: Đây là hook được sử dụng để định nghĩa lại giá trị tính toán của một biến dựa trên các dependencies. Nó giúp tránh việc tính toán lại không cần thiết và tăng hiệu suất của ứng dụng.
+
+`useCallback()`: Đây là hook được sử dụng để định nghĩa lại hàm callback của một thành phần dựa trên các dependencies. Nó giúp đảm bảo rằng hàm callback chỉ được định nghĩa lại khi các dependencies thay đổi, giúp tránh việc rendering không cần thiết của các thành phần con.
+
+`useImperativeHandle()`: Đây là hook được sử dụng để tạo ra một giao diện (interface) tùy chỉnh cho một thành phần con, cho phép gọi các hàm bên trong thành phần con từ thành phần cha.
+
+`useLayoutEffect()`: Đây là hook tương tự như useEffect(), nhưng nó được thực thi đồng bộ trước khi giao diện được cập nhật, đồng thời nó sẽ chặn rendering, giúp đồng bộ hóa các thay đổi giao diện.
+
+Các built-in hook trong React có rất nhiều các case sử dụng khác nhau, tùy thuộc vào yêu cầu và logic của ứng dụng. Ví dụ, useState() thường được sử dụng để quản lý trạng thái của thành phần, useEffect() được sử dụng để gọi API, xử lý dữ liệu bất đồng bộ, useContext() được sử dụng để chia sẻ dữ liệu giữa các thành phần con, useReducer() được sử dụng để quản lý state phức tạp hơn, useRef() được sử dụng để tham chiếu đến DOM, useMemo() và useCallback() được sử dụng để tăng hiệu suất trong việc tính toán lại, và useLayoutEffect() được sử dụng để đồng bộ hóa giao diện trước khi cập nhật. Các built-in hook trong React cung cấp một cách hiệu quả để quản lý trạng thái, vòng đời, và hành vi của các thành phần trong ứng dụng React.
+
+---
+
+## Làm thế nào để định nghĩa kiểu dữ liệu và dữ liệu mặc định cho Props (advance)
+
+1. PropTypes hiểu một cách đơn giản là giúp bạn có thể check được các props được truyền vào component có type là gì.
+
+   Khi người khác sử dụng component của bạn thì họ sẽ dễ dàng biết được props đó là gì và có bắt buộc phải truyền vào hay không.
+
+   Ngoài ra bạn còn có thể đặt giá trị mặc định cho props thông qua defaultProps
+
+2. PropTypes có những loại gì?
+
+```
+import PropTypes from 'prop-types';
+
+MyComponent.propTypes = {
+  // Đây là một số type cơ bản chắc là ai cũng biết nhỉ
+  propArray: PropTypes.array,
+  propBool: PropTypes.bool,
+  propFunc: PropTypes.func, // Đây là một function
+  propNumber: PropTypes.number,
+  propObject: PropTypes.object,
+  propString: PropTypes.string,
+  propSymbol: PropTypes.symbol,
+
+  // Bất cứ thứ gì có thể dược rende: numbers, string, element,
+  // hoặc là một array chứa những thứ trên
+  propNode: PropTypes.node,
+
+  // Một React element.
+  propElement: PropTypes.element,
+
+  // Có thể limit props là một trong những kiểu nào đó
+  // bằng cách coi nó như enum
+  propEnum: PropTypes.oneOf(['News', 'Photos']),
+
+  // một object mà có thể là một trong nhiều kiểu
+  propUnion: PropTypes.oneOfType([
+    PropTypes.string,
+    PropTypes.number,
+    PropTypes.bool,
+  ]),
+
+  // Là một mảng của các số chẳng hạn
+  propArrayOf: PropTypes.arrayOf(PropTypes.number),
+
+  // Là một object mà trong đó có value là number
+  propObjectOf: PropTypes.objectOf(PropTypes.number),
+
+  // một object theo một format nào đó
+  propShape: PropTypes.shape({
+    color: PropTypes.string,
+    fontSize: PropTypes.number
+  }),
+
+  // Hoặc là một mảng và trong mảng đó chứa các object
+  propArrayObj: PropTypes.arrayOf(
+    PropTypes.shape({
+      color: PropTypes.string,
+      fontSize: PropTypes.number
+    }),
+  ),
+
+  // bất cứ kiểu nào
+  requiredAny: PropTypes.any,
+}
+```
+
+3. Làm thế nào để truyền giá trị mặc định cho props?
+
+khai báo thêm `defaultProps`
+
+```
+import PropTypes from 'prop-types';
+
+class Funny extends React.Component {
+  render() {
+    return (
+      <h1>My name is {this.props.name}</h1>
+    );
+  }
+}
+
+Funny.propTypes = {
+  name: PropTypes.string
+};
+
+Funny.defaultProps = {
+  name: 'Sun*'
+}
+```
+
+---
+
+## SPA là gì? Làm sao để điều hướng, navigate giữa các trang trong react (advance)
+
+1. **SPA là gì?**
+
+Một single-page application (SPA) là 1 website thực hiện việc render lại nội dung khi thực hiện việc điều hướng ( ví dụ khi người dùng thực hiện việc click vào 1 link ) thì sẽ không thực hiện việc request lên server để lấy toàn bộ html mới về cho trang SPA đó nữa.
+
+---
+
+## Theo creator của React, làm thế nào để quản lý các global state 1 cách tối ưu, có những công cụ gì để làm việc đấy? (advance)
+
+Theo creator của React, cách tốt nhất để quản lý global state trong ứng dụng React là sử dụng một thư viện quản lý trạng thái ngoài (external state management library) như Redux hoặc MobX. Các thư viện này cung cấp các công cụ và quy trình đã được tối ưu hóa để quản lý trạng thái của ứng dụng một cách hiệu quả.
+
+Redux là một thư viện phổ biến để quản lý trạng thái trong ứng dụng React. Nó dựa trên kiến thức về kiến thức về Flux, một kiến trúc quản lý trạng thái, và cung cấp một cách tiếp cận đơn giản và hiệu quả để quản lý trạng thái của ứng dụng. Redux sử dụng một store duy nhất để lưu trữ toàn bộ trạng thái của ứng dụng và quản lý việc cập nhật trạng thái đó qua các hàm gọi là actions. Ngoài ra, Redux còn cung cấp middleware để xử lý các logic phức tạp như gọi API, xử lý side-effect, và đồng bộ dữ liệu.
+
+MobX là một thư viện quản lý trạng thái dựa trên quan sát (observable) và phản ứng (reactive). Nó cho phép bạn quản lý trạng thái của ứng dụng dưới dạng các đối tượng quan sát, giúp tự động cập nhật giao diện người dùng mỗi khi trạng thái thay đổi. MobX cung cấp một cách tiếp cận linh hoạt và dễ hiểu để quản lý trạng thái trong ứng dụng React mà không cần nhiều boilerplate code.
+
+Ngoài ra, còn một số công cụ và thư viện khác như Context API của React, Redux Toolkit, React Query, Apollo Client, và nhiều lựa chọn khác để quản lý trạng thái trong ứng dụng React một cách tối ưu và dễ dàng. Tuy nhiên, việc lựa chọn công cụ nào phụ thuộc vào yêu cầu và độ phức tạp của dự án cụ thể, cũng như sự quen thuộc và kinh nghiệm của nhóm phát triển.
+
+Một số phương pháp và công cụ phổ biến để quản lý trạng thái toàn cục trong React bao gồm:
+
+Props drilling: Phương pháp này liên quan đến việc truyền trạng thái và callback thông qua props từ các thành phần cha xuống các thành phần con. Mặc dù đây là một phương pháp đơn giản, nhưng nó có thể trở nên cồng kềnh và dễ mắc lỗi khi xử lý các thành phần lồng nhau sâu hoặc khi trạng thái cần được chia sẻ trên nhiều cấp độ của cây thành phần.
+
+React Context: React Context là một tính năng tích hợp sẵn trong React cho phép chia sẻ trạng thái qua các thành phần mà không cần truyền props qua từng cấp độ của cây thành phần. Nó cung cấp cách để truyền dữ liệu xuống cây thành phần một cách ngầm định, làm cho nó hiệu quả hơn cho việc quản lý trạng thái toàn cục trong các ứng dụng lớn hơn.
+
+Các thư viện quản lý trạng thái: Có các thư viện quản lý trạng thái bên thứ ba như Redux, MobX, và Zustand cung cấp những giải pháp nâng cao và có thể mở rộng hơn cho việc quản lý trạng thái toàn cục trong các ứng dụng React. Các thư viện này cung cấp các công cụ, quy trình và kiến thức để quản lý trạng thái toàn cục một cách tối ưu, giúp giảm bớt sự phức tạp của việc quản lý trạng thái trong ứng dụng React.
+
+React Hooks: React Hooks là một tính năng của React cho phép sử dụng các hàm như useState, useEffect, useContext, và useReducer để quản lý trạng thái trong các thành phần hàm (functional components) của React. Hooks cung cấp một cách tiện lợi và đơn giản hơn để quản lý trạng thái toàn cục trong các thành phần của ứng dụng React.
+
+GraphQL: GraphQL là một ngôn ngữ truy vấn dữ liệu được phát triển bởi Facebook, có thể được sử dụng để quản lý trạng thái toàn cục của ứng dụng React thông qua việc truy vấn và cập nhật dữ liệu từ server. GraphQL cung cấp khả năng truy vấn dữ liệu theo yêu cầu, giúp giảm bớt việc truyền dữ liệu không cần thiết và quản lý trạng thái toàn cục một cách tối ưu.
+
+Tóm lại, để quản lý trạng thái toàn cục trong ứng dụng React một cách tối ưu, có nhiều công cụ và phương pháp khác nhau có thể được sử dụng, bao gồm Props drilling, React Context, các thư viện quản lý trạng thái bên thứ ba, React Hooks, và GraphQL. Lựa chọn công cụ và phương pháp thích hợp phụ thuộc vào độ phức tạp của ứng dụng và yêu cầu cụ thể của dự án.
