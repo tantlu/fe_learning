@@ -1318,6 +1318,114 @@ Funny.defaultProps = {
 
 Một single-page application (SPA) là 1 website thực hiện việc render lại nội dung khi thực hiện việc điều hướng ( ví dụ khi người dùng thực hiện việc click vào 1 link ) thì sẽ không thực hiện việc request lên server để lấy toàn bộ html mới về cho trang SPA đó nữa.
 
+2. Làm sao để điều hướng, navigate giữa các trang trong react
+
+React Router là thư viện thứ 3 dùng để điều hướng trong React app, nó xây dựng trên browser history API dùng để render ra component UI đồng bộ với URL của browser, nó gồm 3 packages sau:
+
+`react-router`
+
+`react-router-dom`
+
+`react-router-native`
+
+Mỗi package sẽ có 1 cách sử dụng khác nhau, react-router là thành phần core để sử dụng cho react-router-dom và react-router-native. react-router-dom sử dụng khi xây dựng web app; react-router-native dùng khi xây dựng React Native(mobile) app.
+
+3 thành phần chính của `React router` là `BrowserRouter, Route và Link`
+
+`BrowserRouter`: dùng để wrap tất cả route component
+
+`Route`: dùng để ẩn/hiện component (page) mà nó chứa
+
+`Link`: generate các link để di chuyển tới page mà ta mong muốn
+
+### BrowserRouter
+
+ ví dụ đơn giản về BrowserRouter. Import nó từ react-router-dom và sử dụng nó để wrap tất cả app
+```
+ import React from 'react'
+import ReactDOM from 'react-dom'
+import { BrowserRouter as Router } from 'react-router-dom'
+
+ReactDOM.render(
+  <Router>
+      <div>
+        <!-- -->
+      </div>
+  </Router>,
+  document.getElementById('app')
+)
+```
+BrowserRouter chỉ có thể chứa 1 child component, vì vậy ta có thể wrap trong 1 thẻ div hoặc react fragment <>
+
+### Route
+
+Route dùng để xác định component nào sẽ render ra tương ứng với path nào, BrowserRouter sẽ accept request URL của browser và sẽ match nó mới path của Route để render ra component mà route đó chứa, nếu không match với bất kì path nào của Route thì sẽ render ra null.
+
+Ví dụ
+```
+import React from 'react'
+import ReactDOM from 'react-dom'
+import { BrowserRouter as Router, Route } from 'react-router-dom'
+
+const Home = () => (
+  <div>
+    <h1>Home Component</h1>
+  </div>
+)
+
+const About = () => (
+  <div>
+    <h1>About Component</h1>
+  </div>
+)
+
+ReactDOM.render(
+  <Router>
+      <div>
+            <Route path='/' component={Home} />
+            <Route path='/about' component={About} />
+      </div>
+  </Router>,
+  document.getElementById('app')
+)
+```
+Ở ví dụ trên access `http://localhost:3000/` sẽ render ra component là Home, nếu `http://localhost:3000/about` thì render ra cả 2 component là Home và About, nếu chúng ta muốn chỉ render ra component mà match chính xác với URL thì thêm exact property vào Route, như vậy sẽ chỉ render ra component mà match chính xác với path của Route.
+
+Có 3 cách render sử dung Route: 
+
+1. `<Route component>`: Render ra component chỉ khi location match với path prop.
+`<Route path='/' component={Home} />`
+
+2. `<Route render>`: Giống như cách trên, nhưng cách này có thể render ra inline component và có thể pass thêm các props khác cho component.
+```
+const FadingRoute = ({ component: Component, ...rest }) => (
+  <Route {...rest} render={routeProps => (
+    <FadeIn>
+      <Component {...routeProps}/>
+    </FadeIn>
+  )}/>
+)
+
+<FadingRoute path="/cool" component={Something}/>
+```
+3. `<Route children>`: Cách này sẽ luôn luôn render ra component, nhưng match props sẽ null nếu path không match với URL, vd: có thể dùng trong trường hợp để active menu bar item.
+```
+const ListItemLink = ({ to, ...rest }) => (
+  <Route
+    path={to}
+    children={({ match }) => (
+      <li className={match ? "active" : ""}>
+        <Link to={to} {...rest} />
+      </li>
+    )}
+  />
+);
+
+<ul>
+  <ListItemLink to="/somewhere" />
+  <ListItemLink to="/somewhere-else" />
+</ul>;
+```
 ---
 
 ## Theo creator của React, làm thế nào để quản lý các global state 1 cách tối ưu, có những công cụ gì để làm việc đấy? (advance)
