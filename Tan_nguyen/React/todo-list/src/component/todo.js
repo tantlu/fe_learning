@@ -130,6 +130,9 @@ const Todo = () => {
               return (
                 <div className="eachItem" key={elem.id}>
                   <h3>{elem.name}</h3>
+                  <div className="todo-status">
+                    {elem.completed ? "Complete" : "Todo"}
+                  </div>
                   <div className="todo-btn">
                     <i
                       className="far fa-edit add-btn"

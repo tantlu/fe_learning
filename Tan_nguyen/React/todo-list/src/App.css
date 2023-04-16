@@ -166,6 +166,16 @@ input:focus {
   color: rgb(85, 41, 220);
 }
 
+.todo-status {
+  font-size: 14px;
+  width: 10rem;
+  color: #ffffff;
+}
+
+.eachItem:hover .todo-status {
+  color: rgb(85, 41, 220);
+}
+
 .btn {
   letter-spacing: 0.1em;
   cursor: pointer;
